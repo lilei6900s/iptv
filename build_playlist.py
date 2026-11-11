@@ -155,6 +155,12 @@ SOURCE_OVERRIDES = {
     "美亚电影": "http://103.172.187.30:12000/stream/mytv/null-2/master.m3u8",
     # 原住民电视：tw 源里排前面的 akamaized 源已死，用同文件里直播的那个
     "IndigenousTV": "https://streamipcfapp.akamaized.net/live/_definst_/live_720/key_b1500.m3u8",
+    # 港澳台 5 个台的新源（2026-11-11 全表排查后找到，变体列表实测有直播分片）
+    "明珠": "http://r.jdshipin.com/jUx8K",  # TVB明珠台，原 163189 中继返回空列表
+    "凤凰中文": "http://php.jdshipin.com/TVOD/iptv.php?id=fhzw",  # 与凤凰卫视台同一条流
+    "凤凰资讯": "http://php.jdshipin.com/TVOD/iptv.php?id=fhzx",  # 替换原来的 FLV 直连
+    "千禧经典": "http://php.jdshipin.com/TVOD/iptv.php?id=tvbc",  # TVB千禧经典台
+    "无线星河": "http://php.jdshipin.com/TVOD/iptv.php?id=xinghe",  # TVB无线星河
 }
 
 # Group order the user asked for (2026-11-11): 央视, 卫视, 港澳台, 日韩,
@@ -307,12 +313,19 @@ def main():
         if excluded(display):
             n_excluded += 1
             continue
+        # ChiSheng9's m3u8 files are not streams at all: each contains only a
+        # YouTube watch URL (verified 2026-11-11, all 17 TV files), which an
+        # m3u8 player cannot play. Drop them so they never appear as dead
+        # channels (20 entries across 港澳台/日韩/其他）.
+        if "raw.githubusercontent.com/ChiSheng9" in url:
+            n_excluded += 1
+            continue
         key = (display, url)
         if key in seen_pair:
             continue
         seen_pair.add(key)
         merged.append((src, extinf, display, url, vlcopts))
-    print(f"merged (exact-dup removed): {len(merged)} (excluded {n_excluded} pay/春晚 entries)")
+    print(f"merged (exact-dup removed): {len(merged)} (excluded {n_excluded} entries)")
 
     # deduped: one entry per normalized name, first occurrence wins
     deduped = []
