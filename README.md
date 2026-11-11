@@ -8,6 +8,12 @@
 https://raw.githubusercontent.com/lilei6900s/iptv/main/iptv.m3u
 ```
 
+国内访问不顺（比如移动宽带打不开上面那个链接）可以用这个镜像，内容一样：
+
+```
+https://cdn.jsdelivr.net/gh/lilei6900s/iptv@main/iptv.m3u
+```
+
 ## 每天自动更新
 
 `.github/workflows/daily-rebuild.yml` 每天 08:00（北京时间）自动从上游重建：
