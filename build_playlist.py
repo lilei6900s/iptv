@@ -5,6 +5,7 @@ Priority: Guovin (auto-tested CCTV+satellite) > bestK (satellite+HK/MO/TW)
          > iptv-org jp > iptv-org kr.
 Dedup by normalized name, one entry per channel, first occurrence wins.
 Run daily by GitHub Actions (.github/workflows/daily-rebuild.yml).
+2026-11-11: 港澳台组内按香港/澳门/台湾排序；日韩频道名尽量转中文。
 """
 
 import re
@@ -111,6 +112,56 @@ DISPLAY_NAMES = {
 }
 
 
+# 日韩频道中文名（2026-11-11 用户要求：能改成中文的就改，不能改的保持原样）。
+# 键是 norm_key（已去掉清晰度/标记后缀），值是中文核心名；清晰度与 [Not 24/7]
+# 等后缀会原样保留。呼号类（HLxx-DTV）与含义不明的缩写不在表里，保持原名。
+JP_KR_DISPLAY_NAMES = {
+    "NipponTV": "日本电视台",
+    "TVTokyo": "东京电视台",
+    "Arirang": "阿里郎",
+    "ArirangTV": "阿里郎电视台",
+    "ArirangRadio": "阿里郎电台",
+    "TBSTV": "TBS电视台",
+    "EBS1TV": "韩国EBS1台",
+    "EBS2TV": "韩国EBS2台",
+    "EBSEnglish": "韩国EBS英语台",
+    "EBSKids": "韩国EBS少儿台",
+    "EBSPlus1": "韩国EBS Plus 1台",
+    "EBSPlus2": "韩国EBS Plus 2台",
+    "TVChosun": "TV朝鲜",
+    "TVChosun2": "TV朝鲜2台",
+    "MBCDramaSouthKorea": "MBC电视剧台",
+    "MBCGyeongnamTV": "MBC庆南电视台",
+    "KTVSouthKorea": "韩国政策电视台",
+    "YTN": "YTN新闻台",
+    "MTN": "MTN财经台",
+    "NationalAssemblyTV": "韩国国会电视台",
+    "GugakTV": "韩国国乐电视台",
+    "GugbangTV": "韩国国防电视台",
+    "BBSTVSouthKorea": "韩国佛教电视台",
+    "BTNTVSouthKorea": "BTN佛教电视台",
+    "Weathernews": "气象新闻台",
+}
+
+_SUFFIX_RE = re.compile(r"^(.*?)((?: \([0-9]+[pi]\))?(?: \[[^\]]*\])?)$")
+
+
+def rename_jp_kr(k, disp):
+    """Rename a JP/KR display name to Chinese when a mapping exists.
+    Keeps the resolution / [flag] suffix. NHK General TV is matched by
+    prefix because its callsign (JOJG-DTV etc.) varies by station."""
+    if k.startswith("NHKGeneralTV"):
+        core = "NHK综合电视台"
+    elif k in JP_KR_DISPLAY_NAMES:
+        core = JP_KR_DISPLAY_NAMES[k]
+    else:
+        return disp
+    m = _SUFFIX_RE.match(disp)
+    if m:
+        return core + m.group(2)
+    return core
+
+
 # Channels the user asked to leave out (2026-11-11): CCTV pay channels and
 # past Spring Festival Gala recordings. Matched on the normalized name, so
 # they stay out of every daily rebuild, not just this one snapshot.
@@ -168,6 +219,28 @@ SOURCE_OVERRIDES = {
 # Malaysia/Singapore, movie/sports/shopping/documentary specialty channels)
 # goes to a trailing 其他 group.
 GROUP_ORDER = ["央视", "卫视", "港澳台", "日韩", "地方台", "其他"]
+
+# 港澳台组内排序（2026-11-11 用户要求）：香港在上，澳门其次，台湾最后，
+# 归属不明的（CNA 等海外/综合台）排在末尾、保持原有相对顺序。
+HK_TIER = ("凤凰", "翡翠", "明珠", "RTHK", "港台", "有线新闻", "HOY",
+           "ViuTV", "香港", "耀才", "NOW NEWS", "星空", "美亚", "无线",
+           "千禧", "华丽", "BSTV", "阳光卫视")
+# 注意：TVB 与天映不用子串匹配——TVBS（台湾）含 TVB，靖天（台湾）含“天映”，
+# 必须用正则排除这两种台湾台。
+TW_TIER = ("TVBS", "东森", "EBC", "三立", "台视", "华视", "民视", "中天", "大爱",
+           "客家", "原住民", "MOMO", "公视", "Good TV", "GOOD TV", "人间卫视",
+           "靖天", "唯心", "纬来", "八大", "ELEVEN", "NTD", "大立", "台湾")
+
+
+def hkmo_tier(disp):
+    if "澳门" in disp or "澳视" in disp or "澳亚" in disp:
+        return 1
+    if (re.search(r"TVB(?!S)", disp) or re.search(r"(?<!靖)天映", disp)
+            or any(m in disp for m in HK_TIER)):
+        return 0
+    if any(m in disp for m in TW_TIER):
+        return 2
+    return 3
 
 HK_MARKERS = (
     "凤凰", "TVB", "翡翠", "明珠台", "RTHK", "港台", "TVBS", "中天", "CTi",
@@ -337,6 +410,7 @@ def main():
         seen_key.add(k)
         disp = to_simp(display)
         disp = DISPLAY_NAMES.get(k, disp)
+        disp = rename_jp_kr(k, disp)
         if k in SOURCE_OVERRIDES:
             url = SOURCE_OVERRIDES[k]
             vlcopts = []
@@ -344,11 +418,20 @@ def main():
         deduped.append((src, extinf, disp, url, vlcopts, grp))
     # sort into the user's group order, keeping upstream order inside a group
     deduped.sort(key=lambda e: GROUP_ORDER.index(e[5]))
+    # 港澳台组内按 香港 > 澳门 > 台湾 > 其他 重排（稳定排序，组内原顺序保留）
+    _hkmo_idx = [i for i, e in enumerate(deduped) if e[5] == "港澳台"]
+    _hkmo_sub = [deduped[i] for i in _hkmo_idx]
+    _hkmo_sub.sort(key=lambda e: hkmo_tier(e[2]))
+    for i, e in zip(_hkmo_idx, _hkmo_sub):
+        deduped[i] = e
     print(f"deduped: {len(deduped)}")
     for g in GROUP_ORDER:
         print(f"  group {g}: {sum(1 for e in deduped if e[5] == g)}")
 
     # verification
+    _tiers = [hkmo_tier(d) for _, _, d, _, _, g in deduped if g == "港澳台"]
+    assert _tiers == sorted(_tiers), "港澳台 tiers out of order!"
+    print(f"  港澳台 tiers 香港/澳门/台湾/其他: {[_tiers.count(t) for t in range(4)]}")
     keys = [norm_key(d) for _, _, d, _, _, _ in deduped]
     assert len(keys) == len(set(keys)), "normalized name repeats!"
     disps = [d for _, _, d, _, _, _ in deduped]
@@ -366,7 +449,7 @@ def main():
         [e[5] for e in deduped], key=lambda g: GROUP_ORDER.index(g)), "groups out of order!"
     for want in ["CCTV-1", "CCTV-5", "CCTV-13", "湖南卫视", "广东卫视", "浙江卫视",
                  "东方卫视", "北京卫视", "江苏卫视", "凤凰卫视", "TVBS新闻台",
-                 "东森财经新闻", "NHK General TV", "Nippon TV", "TV Tokyo", "Arirang",
+                 "东森财经新闻", "NHK综合电视台", "日本电视台", "东京电视台", "阿里郎",
                  "翡翠", "中天新闻", "RTHK31"]:
         hit = [d for d in disps if norm_key(d) == norm_key(want)]
         print(f"  check {want}: {'OK ' + str(hit) if hit else 'MISSING'}")
