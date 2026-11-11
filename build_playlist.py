@@ -68,6 +68,25 @@ def excluded(display):
     return any(s in k for s in EXCLUDE_SUBSTRINGS)
 
 
+# Channels whose first (Guovin/bestK) source is a recording or dead: force a
+# verified-live source. Keys are normalized names; values are stable entry
+# URLs (gslb redirectors). Applied in the dedup step, so every daily rebuild
+# keeps the live source and the merged file still holds all backups.
+SOURCE_OVERRIDES = {
+    "湖南卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hnwshd",
+    "广东卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gdwshd",
+    "四川卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=scwshd",
+    "江西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jxwshd",
+    "贵州卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gzwshd",
+    "宁夏卫视": "http://107.150.60.122/live/nxws.m3u8",
+    "新疆卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=xjws",
+    "西藏卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=xzws",
+    "内蒙古卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=nmgws",
+    "陕西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=snwshd",
+    "山西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sxwshd",
+}
+
+
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -144,6 +163,9 @@ def main():
             continue
         seen_key.add(k)
         disp = to_simp(display)
+        if k in SOURCE_OVERRIDES:
+            url = SOURCE_OVERRIDES[k]
+            vlcopts = []
         deduped.append((src, extinf, disp, url, vlcopts))
     print(f"deduped: {len(deduped)}")
 
@@ -154,6 +176,9 @@ def main():
     assert len(disps) == len(set(disps)), "display name repeats!"
     assert not any("春晚" in d for d in disps), "春晚 entries remain!"
     assert not any(norm_key(d) in EXCLUDE_KEYS for d in disps), "pay channels remain!"
+    for name, want_url in SOURCE_OVERRIDES.items():
+        hit = [u for _, _, d, u, _ in deduped if norm_key(d) == norm_key(name)]
+        assert hit and hit[0] == want_url, f"override missing for {name}"
     for want in ["CCTV-1", "CCTV-5", "CCTV-13", "湖南卫视", "广东卫视", "浙江卫视",
                  "东方卫视", "北京卫视", "江苏卫视", "凤凰卫视", "TVBS新闻台",
                  "东森财经新闻", "NHK General TV", "Nippon TV", "TV Tokyo", "Arirang",
