@@ -50,6 +50,24 @@ def norm_key(name):
     return n
 
 
+# Channels the user asked to leave out (2026-11-11): CCTV pay channels and
+# past Spring Festival Gala recordings. Matched on the normalized name, so
+# they stay out of every daily rebuild, not just this one snapshot.
+EXCLUDE_KEYS = {
+    "文化精品", "央视台球", "风云音乐", "第一剧场", "风云剧场", "怀旧剧场",
+    "女性时尚", "高尔夫网球", "风云足球", "电视指南", "世界地理", "兵器科技",
+    "CHC家庭影院", "CHC动作电影",
+}
+EXCLUDE_SUBSTRINGS = ("春晚",)
+
+
+def excluded(display):
+    k = norm_key(display)
+    if k in EXCLUDE_KEYS:
+        return True
+    return any(s in k for s in EXCLUDE_SUBSTRINGS)
+
+
 def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -101,17 +119,21 @@ def main():
     # merged: drop exact (display, url) duplicates, drop junk entries
     merged = []
     seen_pair = set()
+    n_excluded = 0
     for src, extinf, display, url, vlcopts in all_entries:
         if not display or not url.startswith("http"):
             continue
         if re.match(r"^\d{4}-\d{2}-\d{2}", display):  # Guovin "update time" pseudo-channel
+            continue
+        if excluded(display):
+            n_excluded += 1
             continue
         key = (display, url)
         if key in seen_pair:
             continue
         seen_pair.add(key)
         merged.append((src, extinf, display, url, vlcopts))
-    print(f"merged (exact-dup removed): {len(merged)}")
+    print(f"merged (exact-dup removed): {len(merged)} (excluded {n_excluded} pay/春晚 entries)")
 
     # deduped: one entry per normalized name, first occurrence wins
     deduped = []
@@ -130,6 +152,8 @@ def main():
     assert len(keys) == len(set(keys)), "normalized name repeats!"
     disps = [d for _, _, d, _, _ in deduped]
     assert len(disps) == len(set(disps)), "display name repeats!"
+    assert not any("春晚" in d for d in disps), "春晚 entries remain!"
+    assert not any(norm_key(d) in EXCLUDE_KEYS for d in disps), "pay channels remain!"
     for want in ["CCTV-1", "CCTV-5", "CCTV-13", "湖南卫视", "广东卫视", "浙江卫视",
                  "东方卫视", "北京卫视", "江苏卫视", "凤凰卫视", "TVBS新闻台",
                  "东森财经新闻", "NHK General TV", "Nippon TV", "TV Tokyo", "Arirang",
