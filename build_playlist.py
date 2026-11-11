@@ -118,6 +118,8 @@ EXCLUDE_KEYS = {
     "文化精品", "央视台球", "风云音乐", "第一剧场", "风云剧场", "怀旧剧场",
     "女性时尚", "高尔夫网球", "风云足球", "电视指南", "世界地理", "兵器科技",
     "CHC家庭影院", "CHC动作电影",
+    # CGTN channels removed at the user's request (2026-11-11)
+    "CGTN英语", "CGTN法语", "CGTN俄语", "CGTN西语", "CGTN阿语", "CGTN记录",
     # premium channels that only exist as raw .ts streams (not m3u8): APTV can't play them
     "AXNAsiaTaiwan", "AnimaxAsiaTaiwan", "CinemaxAsiaTaiwan",
     "DiscoveryAsiaTaiwan", "HBOAsiaTaiwan",
