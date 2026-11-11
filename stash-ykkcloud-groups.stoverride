@@ -1,0 +1,96 @@
+# Stash 覆写：给 YKKCLOUD 订阅新增策略组（2026-11-11）
+# 原有分组和规则不动；新分组排在原有分组之后，新规则插在原有规则之前。
+# 新分组默认包含订阅全部节点（include-all），再加一个 YKKCLOUD 故障转移入口；
+# Apple / Google / Microsoft 另加 DIRECT，国内服务直连更快。
+name: YKKCLOUD 更多策略组
+desc: 新增 YouTube、Spotify、TikTok、AI、Apple、Google、Microsoft 策略组
+proxy-groups: #!append
+  - name: YouTube
+    type: select
+    include-all: true
+    proxies:
+      - YKKCLOUD
+  - name: Spotify
+    type: select
+    include-all: true
+    proxies:
+      - YKKCLOUD
+  - name: TikTok
+    type: select
+    include-all: true
+    proxies:
+      - YKKCLOUD
+  - name: AI
+    type: select
+    include-all: true
+    proxies:
+      - YKKCLOUD
+  - name: Apple
+    type: select
+    include-all: true
+    proxies:
+      - DIRECT
+      - YKKCLOUD
+  - name: Google
+    type: select
+    include-all: true
+    proxies:
+      - DIRECT
+      - YKKCLOUD
+  - name: Microsoft
+    type: select
+    include-all: true
+    proxies:
+      - DIRECT
+      - YKKCLOUD
+rules:
+  - DOMAIN-SUFFIX,youtube.com,YouTube
+  - DOMAIN-SUFFIX,youtu.be,YouTube
+  - DOMAIN-SUFFIX,googlevideo.com,YouTube
+  - DOMAIN-SUFFIX,ytimg.com,YouTube
+  - DOMAIN-SUFFIX,youtube-nocookie.com,YouTube
+  - DOMAIN-SUFFIX,spotify.com,Spotify
+  - DOMAIN-SUFFIX,scdn.co,Spotify
+  - DOMAIN-SUFFIX,spotifycdn.com,Spotify
+  - DOMAIN-SUFFIX,tiktok.com,TikTok
+  - DOMAIN-SUFFIX,tiktokv.com,TikTok
+  - DOMAIN-SUFFIX,tiktokcdn.com,TikTok
+  - DOMAIN-SUFFIX,tiktokcdn-us.com,TikTok
+  - DOMAIN-SUFFIX,musical.ly,TikTok
+  - DOMAIN-SUFFIX,byteoversea.com,TikTok
+  - DOMAIN-SUFFIX,openai.com,AI
+  - DOMAIN-SUFFIX,chatgpt.com,AI
+  - DOMAIN-SUFFIX,oaistatic.com,AI
+  - DOMAIN-SUFFIX,oaiusercontent.com,AI
+  - DOMAIN-SUFFIX,claude.ai,AI
+  - DOMAIN-SUFFIX,anthropic.com,AI
+  - DOMAIN-SUFFIX,perplexity.ai,AI
+  - DOMAIN-SUFFIX,poe.com,AI
+  - DOMAIN-SUFFIX,grok.com,AI
+  - DOMAIN-SUFFIX,x.ai,AI
+  - DOMAIN-SUFFIX,gemini.google.com,AI
+  - DOMAIN-SUFFIX,copilot.microsoft.com,AI
+  - DOMAIN-SUFFIX,apple.com,Apple
+  - DOMAIN-SUFFIX,icloud.com,Apple
+  - DOMAIN-SUFFIX,mzstatic.com,Apple
+  - DOMAIN-SUFFIX,cdn-apple.com,Apple
+  - DOMAIN-SUFFIX,apple-cloudkit.com,Apple
+  - DOMAIN-SUFFIX,aaplimg.com,Apple
+  - DOMAIN-SUFFIX,apple-dns.net,Apple
+  - DOMAIN-SUFFIX,google.com,Google
+  - DOMAIN-SUFFIX,googleapis.com,Google
+  - DOMAIN-SUFFIX,gstatic.com,Google
+  - DOMAIN-SUFFIX,gmail.com,Google
+  - DOMAIN-SUFFIX,android.com,Google
+  - DOMAIN-SUFFIX,ggpht.com,Google
+  - DOMAIN-SUFFIX,googleusercontent.com,Google
+  - DOMAIN-SUFFIX,microsoft.com,Microsoft
+  - DOMAIN-SUFFIX,windows.com,Microsoft
+  - DOMAIN-SUFFIX,live.com,Microsoft
+  - DOMAIN-SUFFIX,office.com,Microsoft
+  - DOMAIN-SUFFIX,outlook.com,Microsoft
+  - DOMAIN-SUFFIX,onedrive.com,Microsoft
+  - DOMAIN-SUFFIX,msn.com,Microsoft
+  - DOMAIN-SUFFIX,bing.com,Microsoft
+  - DOMAIN-SUFFIX,windowsupdate.com,Microsoft
+  - DOMAIN-SUFFIX,microsoftonline.com,Microsoft
