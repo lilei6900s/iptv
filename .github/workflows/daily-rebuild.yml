@@ -1,0 +1,28 @@
+name: 每日重建 IPTV 订阅
+
+on:
+  schedule:
+    # 每天 08:00（北京时间）自动重建
+    - cron: '0 0 * * *'
+  workflow_dispatch:  # 也可在 Actions 页面手动点 Run workflow
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 从上游重建播放列表
+        run: python3 build_playlist.py
+      - name: 提交更新（有变化才提交）
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add iptv.m3u "IPTV-全频道-去重版.m3u" "IPTV-全频道-央视卫视港澳台日韩.m3u"
+          git diff --cached --quiet || git commit -m "每日自动更新：$(date -u +%Y-%m-%d)"
+          git push
