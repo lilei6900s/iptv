@@ -1,0 +1,30 @@
+#!name=服务检测面板补齐
+#!desc=在第三方服务里增加 Gemini、Claude、Grok 检测（ChatGPT、YouTube、Netflix 机场配置已有，不重复加）
+#!author=Muse
+
+# 只追加 3 个折叠检测面板，不碰分组、规则和现有面板，
+# 与 ZacBi 覆写无冲突。脚本引用 Owlbay 仓库自托管版本（源自 StashNetworks/misc）。
+tiles: #!append
+  - name: Gemini-Check
+    title: Gemini
+    icon: network
+    collapsed: true
+    url: https://gemini.google.com/app
+  - name: Claude-Check
+    title: Claude
+    icon: network
+    collapsed: true
+    url: https://claude.ai/new
+  - name: Grok-Check
+    title: Grok
+    icon: network
+    collapsed: true
+    url: https://grok.com
+
+script-providers:
+  Gemini-Check:
+    url: https://raw.githubusercontent.com/Owlbay/tailscale-proxy-configs/main/ios/collapsed-tiles/script/gemini.js
+  Claude-Check:
+    url: https://raw.githubusercontent.com/Owlbay/tailscale-proxy-configs/main/ios/collapsed-tiles/script/claude.js
+  Grok-Check:
+    url: https://raw.githubusercontent.com/Owlbay/tailscale-proxy-configs/main/ios/collapsed-tiles/script/grok.js
