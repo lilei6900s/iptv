@@ -1,0 +1,18 @@
+#!name=IP 面板
+#!desc=在 Stash 首页和桌面小工具显示当前出口 IP、运营商和所在地
+#!author=Muse
+
+# 只追加一个非折叠 Tile，不碰现有分组、规则和已有的折叠检测面板，
+# 与 ZacBi 覆写（只替换 proxy-groups / rule-providers / rules）无冲突。
+tiles: #!append
+  - name: IP-Tile-CN
+    interval: 3600
+    title: "当前出口 IP"
+    content: "正在获取…"
+    icon: "network.badge.shield.half.filled"
+    backgroundColor: "#0C9DFA"
+
+script-providers:
+  IP-Tile-CN:
+    url: https://raw.githubusercontent.com/lilei6900s/iptv/main/stash-ip-tile.js
+    interval: 86400
