@@ -22,6 +22,7 @@ SOURCES = [
     ("vn", "https://iptv-org.github.io/iptv/countries/vn.m3u"),
     ("la", "https://iptv-org.github.io/iptv/countries/la.m3u"),
     ("ph", "https://iptv-org.github.io/iptv/countries/ph.m3u"),
+    ("th", "https://iptv-org.github.io/iptv/countries/th.m3u"),
 ]
 
 REPLACEMENTS = [
@@ -334,11 +335,76 @@ LIVE_SEA_URLS = {
     'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv9/master.m3u8',
 }
 
+# 泰国只收实测能播的源（与越南/老挝/菲律宾同一标准）。
+# 2026-11-14 逐条验证：73 条里 56 条直播（取到 m3u8 且首个分片能下载），
+# 其余 17 条不在此表：8 条 v2h-cdn 403（Ch7/GMM25/MONO29/One31/JKN18/TNN16/
+# Drama/Thaiban，换 UA+Referer 仍 403，疑似泰国境内限定）、ALTV 403、6 条超时无
+# 响应、1 条分片 404、1 条裸 TS 流（World Entertainment TV 42）。每天重建也不会
+# 把它们加回来；要加新台：先实测能播，再把 URL 加进这张表。
+LIVE_TH_URLS = {
+    'http://103.253.74.210:7070/stream/118/index.m3u8',
+    'http://103.253.74.210:7070/stream/89/index.m3u8',
+    'http://122.155.12.107:1935/live/sbt_tv_aac_300/playlist.m3u8',
+    'http://180.180.243.239/streams/3/hls',
+    'http://dopachannel.truegse.com/live/dopatv03.m3u8',
+    'http://symc-cdn.violin.co.th:1935/tndedge/whitechannel/chunklist.m3u8',
+    'http://www5.cabletv.co.th/StreamToCTV/cablechannel/playlist.m3u8',
+    'https://cdn-edge.iiptvcdn.com/live_event/smil:4f6e-aa34-2034-5492-c82d.smil/playlist.m3u8',
+    'https://cdn-edge.iiptvcdn.com/live_event/smil:f180-054a-38d7-ce66-f7cf.smil/playlist.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv01.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv02.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv03.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv04.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv05.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv06.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv07.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv08.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv09.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv10.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv11.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv12.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv13.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv14.m3u8',
+    'https://cdn-live.dltv.ac.th/dltv15.m3u8',
+    'https://cdn-th-vip2.livestreaming.in.th/watsanghathan/watsanghathan/playlist.m3u8',
+    'https://cdn.liveplustv.com/v1/live/btl-tv/master.m3u8',
+    'https://fastly.live.brightcove.com/1846248737588002042/ap-southeast-1/6075037809001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoibzRoaGc2LmVncmVzcy5zYjBmOGsiLCJhY2NvdW50X2lkIjoiNjA3NTAzNzgwOTAwMSIsImVobiI6ImZhc3RseS5saXZlLmJyaWdodGNvdmUuY29tIiwiaXNzIjoiYmxpdmUtcGxheWJhY2stc291cmNlLWFwaSIsInN1YiI6InBhdGhtYXB0b2tlbiIsImF1ZCI6WyI2MDc1MDM3ODA5MDAxIl0sImp0aSI6IjE4NDYyNDg3Mzc1ODgwMDIwNDIifQ.HbjGHxGv87ivAdsCtAdEDjj2SVCfRnCUMYWn2fCkVPY/playlist-hls.m3u8',
+    'https://live-iptv.cool-channel.com/cool/live-720P.m3u8',
+    'https://live-us1.thaimomo.com/live-as/ch3hd-3/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chNation-3/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chThaipbshd-2/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chTrue4u-2/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chamarin-3/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chboomerang-2/chunklist_w135479847.m3u8',
+    'https://live-us1.thaimomo.com/live-as/cheight-3/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chlantung-2/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chmcothd-3/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chnews1-2/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chthairathhd-3/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chtsport-1/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chtvb-2/playlist.m3u8',
+    'https://live-us1.thaimomo.com/live-as/chworkpointt-3/playlist.m3u8',
+    'https://live.bangkokstream.com:19360/suwannabhumi/suwannabhumi.m3u8',
+    'https://live.thaichaiyo.tv/tcy/live-transmux.m3u8',
+    'https://live.topnews.co.th/hls/topnews_a_720.m3u8',
+    'https://live.x2.co.th/live/13livetv-th.m3u8',
+    'https://live.x2.co.th/live/bntv.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/laothaius.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/nat.sdp/playlist.m3u8',
+    'https://ramach.ddns.net/live/ramalive/index.m3u8',
+    'https://stream1.stou.ac.th/live/stou_720p/playlist.m3u8',
+    'https://tv-live.tpchannel.org/live/tv.m3u8',
+    'https://vdo.plathong.net/Halaltv/Halaltv/playlist.m3u8',
+    'https://vdo.plathong.net/flash7057/flash7057/playlist.m3u8',
+    'https://vdo.plathong.net/live8794/live8794/playlist.m3u8',
+    'https://vdo.plathong.net/tvmuslim/tvmuslim/playlist.m3u8',
+}
+
 # Group order the user asked for (2026-11-11): 央视, 卫视, 港澳台, 日韩,
 # then 地方台. Anything that fits none of those (international news,
 # Malaysia/Singapore, movie/sports/shopping/documentary specialty channels)
 # goes to a trailing 其他 group.
-GROUP_ORDER = ["央视", "卫视", "港澳台", "越南", "老挝", "菲律宾", "日韩", "地方台", "其他"]
+GROUP_ORDER = ["央视", "卫视", "港澳台", "泰国", "越南", "老挝", "菲律宾", "日韩", "地方台", "其他"]
 
 # 港澳台组内排序（2026-11-11 用户要求）：香港在上，澳门其次，台湾最后，
 # 归属不明的（CNA 等海外/综合台）排在末尾、保持原有相对顺序。
@@ -408,8 +474,10 @@ def classify(display, upstream_group, source):
     """Assign one of the six groups. Name rules first, then source, then
     upstream group, then a local-channel default."""
     d = to_simp(display)
-    # 越南/老挝/菲律宾按来源分组（放最前：TVB Vietnam 含 TVB，
+    # 泰国/越南/老挝/菲律宾按来源分组（放最前：TVB Vietnam 含 TVB，
     # 按名字会被误分到港澳台）。
+    if source == "th":
+        return "泰国"
     if source == "vn":
         return "越南"
     if source == "la":
@@ -524,6 +592,9 @@ def main():
         if src in ("vn", "la", "ph") and url not in LIVE_SEA_URLS:
             n_excluded += 1
             continue
+        if src == "th" and url not in LIVE_TH_URLS:
+            n_excluded += 1
+            continue
         key = (display, url)
         if key in seen_pair:
             continue
@@ -588,7 +659,8 @@ def main():
                  "东方卫视", "北京卫视", "江苏卫视", "凤凰卫视", "TVBS新闻台",
                  "东森财经新闻", "NHK综合电视台", "日本电视台", "东京电视台", "阿里郎",
                  "翡翠", "中天新闻", "RTHK31", "VTV1", "HTV7", "LS TV",
-                 "Abante TV"]:
+                 "Abante TV", "Thai PBS", "MCOT HD", "NBT 2 HD",
+                 "Amarin TV"]:
         hit = [d for d in disps if norm_key(d) == norm_key(want)]
         print(f"  check {want}: {'OK ' + str(hit) if hit else 'MISSING'}")
 
