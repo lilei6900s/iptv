@@ -87,6 +87,7 @@ ALIASES = {
     "TTVNews": "台视新闻",
     "MeiAhMovieChannel": "美亚电影",
     "广东大湾区": "大湾区卫视",
+    "EBSKids": "韩国EBS少儿",  # upstream added 韩国EBS少儿; same channel as EBS Kids
 }
 
 
@@ -206,6 +207,21 @@ SOURCE_OVERRIDES = {
     "美亚电影": "http://103.172.187.30:12000/stream/mytv/null-2/master.m3u8",
     # 原住民电视：tw 源里排前面的 akamaized 源已死，用同文件里直播的那个
     "IndigenousTV": "https://streamipcfapp.akamaized.net/live/_definst_/live_720/key_b1500.m3u8",
+    # 2026-11-13 测速换源：避开已死/极慢的中继后端（实测分片速度见注释）。
+    # 74.91 中继会跳转到 192.187.115.106，后端只有约 135KB/s；tvbus 与
+    # 207.56 已无响应；38.75 的跳转目标不稳定，时快时慢。
+    "CCTV2": "http://107.150.60.122/live/cctv2hd.m3u8",  # 原 204.12，654KB/s -> 1307KB/s
+    "CCTV4": "http://107.150.60.122/live/cctv4hd.m3u8",  # 原 74.91 慢后端 -> 1929KB/s
+    "CCTV5+": "http://120.76.248.139/live/bfgd/4200000246.m3u8",  # 原 38.75，5 秒分片 -> 1085KB/s
+    "CCTV6": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv6hd",  # 原 69.30 已死 -> 2559KB/s
+    "CCTV7": "http://107.150.60.122/live/cctv7hd.m3u8",  # 原 74.91 慢后端 -> 1861KB/s
+    "CCTV8": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv8k",  # 原 tvbus 已死 -> 2465KB/s
+    "CCTV11": "http://198.204.228.26/live/cctv11hd.m3u8",  # 原 74.91 慢后端 -> 2821KB/s
+    "CCTV13": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv13hd",  # 原 38.75，153KB/s -> 1853KB/s
+    "CCTV15": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv15hd",  # 原 204.12 -> 1773KB/s
+    "CCTV16": "http://38.75.136.137:98/gslb/dsdqbv/cctv16hd.m3u8?auth=test20251009",  # 原 207.56 已死 -> 230KB/s，唯一备选
+    "东方卫视": "http://107.150.60.122/live/dfwshd.m3u8",  # 原 38.75 -> 2436KB/s
+    "甘肃卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd",  # 原 38.75 -> 1874KB/s
     # 港澳台 5 个台的新源（2026-11-11 全表排查后找到，变体列表实测有直播分片）
     "明珠": "http://r.jdshipin.com/jUx8K",  # TVB明珠台，原 163189 中继返回空列表
     "凤凰中文": "http://php.jdshipin.com/TVOD/iptv.php?id=fhzw",  # 与凤凰卫视台同一条流
@@ -403,6 +419,7 @@ def main():
     # deduped: one entry per normalized name, first occurrence wins
     deduped = []
     seen_key = set()
+    seen_final = set()
     for src, extinf, display, url, vlcopts in merged:
         k = norm_key(display)
         if not k or k in seen_key:
@@ -411,6 +428,11 @@ def main():
         disp = to_simp(display)
         disp = DISPLAY_NAMES.get(k, disp)
         disp = rename_jp_kr(k, disp)
+        fk = norm_key(disp)
+        if fk in seen_final:
+            print(f"  skip rename-collision: {display!r} -> {disp!r} (key {fk})")
+            continue
+        seen_final.add(fk)
         if k in SOURCE_OVERRIDES:
             url = SOURCE_OVERRIDES[k]
             vlcopts = []
