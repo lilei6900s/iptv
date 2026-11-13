@@ -19,6 +19,9 @@ SOURCES = [
     ("kr", "https://iptv-org.github.io/iptv/countries/kr.m3u"),
     ("hk", "https://iptv-org.github.io/iptv/countries/hk.m3u"),
     ("tw", "https://iptv-org.github.io/iptv/countries/tw.m3u"),
+    ("vn", "https://iptv-org.github.io/iptv/countries/vn.m3u"),
+    ("la", "https://iptv-org.github.io/iptv/countries/la.m3u"),
+    ("ph", "https://iptv-org.github.io/iptv/countries/ph.m3u"),
 ]
 
 REPLACEMENTS = [
@@ -230,11 +233,112 @@ SOURCE_OVERRIDES = {
     "无线星河": "http://php.jdshipin.com/TVOD/iptv.php?id=xinghe",  # TVB无线星河
 }
 
+# 越南/老挝/菲律宾只收实测能播的源（用户要求这三个组的台必须是好的）。
+# 2026-11-13 逐条验证：120 条里 94 条直播（取到 m3u8 且首个分片能下载），
+# 其余 26 条（403/404/超时/非 HLS）不在此表，每天重建也不会把它们加回来。
+# 要加新台：先实测能播，再把 URL 加进这张表。
+LIVE_SEA_URLS = {
+    'http://122.55.252.134:8443/live/bba5b536faeacb9b56a3239f1ee8e3b3/1.m3u8',
+    'http://125hvt.ddns.net:21585/vtv2/playlist.m3u8',
+    'http://dethich.pw/vtv5tn/index.m3u8',
+    'http://tldigital-17th06day-tl9648290.duckdns.org/tv.m3u8',
+    'https://618b88f69e53b.streamlock.net/THDT2/thdttv2/chunklist.m3u8',
+    'https://67tz1gnwrvxic.cmccdn.net/hls/NGHEANTV/03.m3u8',
+    'https://amagi-live.ondemandkorea.com/amgplt0456.m3u8',
+    'https://amg00861-amg00861c10-rakuten-uk-3152.playouts.now.amagi.tv/playlist.m3u8',
+    'https://amg01868-amg01868c3-tvbanywhere-us-4491.playouts.now.amagi.tv/playlist/amg01868-tvbusa-tvbvietnam-tvbanywhereus/playlist.m3u8',
+    'https://amg19223-amg19223c11-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c11-amgplt0352/playlist.m3u8',
+    'https://amg19223-amg19223c12-amgplt0352.playout.now3.amagi.tv/playlist/amg19223-amg19223c12-amgplt0352/playlist.m3u8',
+    'https://amg19223-amg19223c2-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c2-amgplt0351/playlist.m3u8',
+    'https://amg19223-amg19223c3-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c3-amgplt0351/playlist.m3u8',
+    'https://amg19223-amg19223c4-amgplt0351.playout.now3.amagi.tv/playlist/amg19223-amg19223c4-amgplt0351/playlist.m3u8',
+    'https://dethich.pw/dongnai3/index.m3u8',
+    'https://dethich.pw/htv1/index.m3u8',
+    'https://dethich.pw/htv2/index.m3u8',
+    'https://dethich.pw/htv3/index.m3u8',
+    'https://dethich.pw/htv7/index.m3u8',
+    'https://dethich.pw/htv9/index.m3u8',
+    'https://dethich.pw/htvcphim/index.m3u8',
+    'https://dethich.pw/htvcphunu/index.m3u8',
+    'https://dethich.pw/thvl1/index.m3u8',
+    'https://dethich.pw/thvl4/index.m3u8',
+    'https://dethich.pw/vtv1/index.m3u8',
+    'https://dethich.pw/vtv10/index.m3u8',
+    'https://dethich.pw/vtv3/index.m3u8',
+    'https://dethich.pw/vtv4/index.m3u8',
+    'https://dethich.pw/vtv5/index.m3u8',
+    'https://dethich.pw/vtv5tnb/index.m3u8',
+    'https://dethich.pw/vtv6/index.m3u8',
+    'https://dethich.pw/vtv7/index.m3u8',
+    'https://dethich.pw/vtv8/index.m3u8',
+    'https://dethich.pw/vtv9/index.m3u8',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=151',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=176',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=177',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=178',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=179',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=180',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=181',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=182',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=184',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=185',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=186',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=188',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=189',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=215',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=216',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=80',
+    'https://freem3u.xyz/api/live/play.m3u8?vid=91',
+    'https://jstre.am/live/jsl:nX5eC7gQvZb.m3u8',
+    'https://live-hq.evgcdn.net/live/2851dc2c9af68834814a89e61db0faee561/chunklist.m3u8',
+    'https://live.canthotv.vn/cs2/live.stream/playlist.m3u8',
+    'https://live.canthotv.vn/cs3/tv/chunklist.m3u8',
+    'https://live.canthotv.vn/live/tv/chunklist.m3u8',
+    'https://live.cltv36.tv:5443/LiveApp/streams/cltvlive.m3u8',
+    'https://live.mediatech.vn/live/2859145290d0d7947ef88b6240123b62474/chunklist.m3u8',
+    'https://live.mediatech.vn/live/285b59a111d76974225a8e3004bfc31a509/chunklist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/briantv.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/hmongstartv.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/ichannel.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/laonet.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/laostv.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/laosvtv.stream/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/laothaius.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/lookthoongtv.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/ningtv.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/ohmuanglao.stream/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/teatv.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/uniquely.sdp/playlist.m3u8',
+    'https://livefta.malimarcdn.com/ftaedge00/vatilaotv.stream/playlist.m3u8',
+    'https://stream-243529.castr.net/6842a712b68c56f675d988f1/live_b60a96e056fc11f084c05f5d0649296b/rewind-1800.m3u8',
+    'https://stream-243529.castr.net/6842a712b68c56f675d988f1/live_f5ac22b0566511f0805217b960326aaa/rewind-1800.m3u8',
+    'https://stream.kdlc.click/hls/0/stream.m3u8',
+    'https://stream.langsontv.vn/live/2855dfeccb7f49a41a2b0441b3bfeda413c/playlist.m3u8',
+    'https://stream.langsontv.vn/live/285c78da0c246524c90917842f8de03bd21/playlist.m3u8',
+    'https://stream.thingnet.vn/live/smil:CRTV.smil/chunklist.m3u8',
+    'https://streaming.thainguyentv.vn/hls/livestream.m3u8',
+    'https://tv.ctvcamau.vn/live/tv/tv.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/bsod999cuteptgyoutuber/1234567890/manifest/sctv3/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv11/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv12/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv13/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv14/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv16/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv18/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv19/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv2/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv20/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv4/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv6/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv7/master.m3u8',
+    'https://vtvgolive-sctvdrm.vtvdigital.vn/manifest/sctv9/master.m3u8',
+}
+
 # Group order the user asked for (2026-11-11): 央视, 卫视, 港澳台, 日韩,
 # then 地方台. Anything that fits none of those (international news,
 # Malaysia/Singapore, movie/sports/shopping/documentary specialty channels)
 # goes to a trailing 其他 group.
-GROUP_ORDER = ["央视", "卫视", "港澳台", "日韩", "地方台", "其他"]
+GROUP_ORDER = ["央视", "卫视", "港澳台", "越南", "老挝", "菲律宾", "日韩", "地方台", "其他"]
 
 # 港澳台组内排序（2026-11-11 用户要求）：香港在上，澳门其次，台湾最后，
 # 归属不明的（CNA 等海外/综合台）排在末尾、保持原有相对顺序。
@@ -304,6 +408,14 @@ def classify(display, upstream_group, source):
     """Assign one of the six groups. Name rules first, then source, then
     upstream group, then a local-channel default."""
     d = to_simp(display)
+    # 越南/老挝/菲律宾按来源分组（放最前：TVB Vietnam 含 TVB，
+    # 按名字会被误分到港澳台）。
+    if source == "vn":
+        return "越南"
+    if source == "la":
+        return "老挝"
+    if source == "ph":
+        return "菲律宾"
     if d.startswith("CCTV") or d.startswith("CGTN") or d.startswith("CETV"):
         return "央视"
     # Taiwan's GOOD TV (not Korea's Good TV, which has the same base name)
@@ -409,6 +521,9 @@ def main():
         if "raw.githubusercontent.com/ChiSheng9" in url:
             n_excluded += 1
             continue
+        if src in ("vn", "la", "ph") and url not in LIVE_SEA_URLS:
+            n_excluded += 1
+            continue
         key = (display, url)
         if key in seen_pair:
             continue
@@ -472,7 +587,8 @@ def main():
     for want in ["CCTV-1", "CCTV-5", "CCTV-13", "湖南卫视", "广东卫视", "浙江卫视",
                  "东方卫视", "北京卫视", "江苏卫视", "凤凰卫视", "TVBS新闻台",
                  "东森财经新闻", "NHK综合电视台", "日本电视台", "东京电视台", "阿里郎",
-                 "翡翠", "中天新闻", "RTHK31"]:
+                 "翡翠", "中天新闻", "RTHK31", "VTV1", "HTV7", "LS TV",
+                 "Abante TV"]:
         hit = [d for d in disps if norm_key(d) == norm_key(want)]
         print(f"  check {want}: {'OK ' + str(hit) if hit else 'MISSING'}")
 
