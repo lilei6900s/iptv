@@ -167,6 +167,123 @@ def rename_jp_kr(k, disp):
     return core
 
 
+# 东南亚频道中文名（2026-11-14 用户要求：能改成中文的就改，不能改的保持原样）。
+# 键是 norm_key，值是中文核心名；清晰度与 [flag] 后缀原样保留。
+# 老挝 9 个台（品牌/人名，无可靠译法）与呼号、品牌缩写不在表里，保持原名。
+SEA_DISPLAY_NAMES = {
+    "3HD": "泰国3台",
+    "AmarinTV": "阿玛林电视台",
+    "AsianFoodNetworkVietnam": "亚洲美食频道",
+    "BilyonaryoNewsChannel": "Bilyonaryo新闻台",
+    "CaMauTV": "金瓯电视台",
+    "CanThoTV": "芹苴电视台",
+    "CanThoTV2": "芹苴电视台2台",
+    "CanThoTV3": "芹苴电视台3台",
+    "CaoBangTV": "高平电视台",
+    "CartoonNetworkAsiaThailand": "卡通频道泰国台",
+    "Channel8": "泰国8台",
+    "DLTV1": "泰国远程教育1台",
+    "DLTV10": "泰国远程教育10台",
+    "DLTV11": "泰国远程教育11台",
+    "DLTV12": "泰国远程教育12台",
+    "DLTV13": "泰国远程教育13台",
+    "DLTV14": "泰国远程教育14台",
+    "DLTV15": "泰国远程教育15台",
+    "DLTV2": "泰国远程教育2台",
+    "DLTV3": "泰国远程教育3台",
+    "DLTV4": "泰国远程教育4台",
+    "DLTV5": "泰国远程教育5台",
+    "DLTV6": "泰国远程教育6台",
+    "DLTV7": "泰国远程教育7台",
+    "DLTV8": "泰国远程教育8台",
+    "DLTV9": "泰国远程教育9台",
+    "DaNangTV1": "岘港电视台1台",
+    "DaNangTV2": "岘港电视台2台",
+    "DienBienTV": "奠边电视台",
+    "DongNaiTV3": "同奈电视台3台",
+    "GiaLaiTV": "嘉莱电视台",
+    "HTV1": "胡志明电视台1台",
+    "HTV2": "胡志明电视台2台",
+    "HTV3": "胡志明电视台3台",
+    "HTV5": "胡志明电视台5台",
+    "HTV7": "胡志明电视台7台",
+    "HTV9": "胡志明电视台9台",
+    "HTVCMovies": "HTVC电影台",
+    "HTVCWomen": "HTVC女性台",
+    "HalalTV": "清真电视台",
+    "HopeChannelPhilippines": "希望频道",
+    "INCRadio": "INC电台",
+    "INCTV": "INC电视台",
+    "LangSonTV": "谅山电视台",
+    "MCOT": "MCOT电视台",
+    "NBT2": "泰国NBT2台",
+    "NBTTVChiangMai": "泰国NBT清迈台",
+    "NationTV": "民族电视台",
+    "NgheAnTV": "义安电视台",
+    "ONInfoTV": "ON资讯台",
+    "ONKids": "ON少儿台",
+    "ONLife": "ON生活台",
+    "ONMovies": "ON电影台",
+    "ONMusic": "ON音乐台",
+    "ONStyleTV": "ON时尚台",
+    "ONTrendingTV": "ON潮流台",
+    "ONVieDramas": "ON Vie电视剧台",
+    "ONVieGiaiTri": "ON Vie娱乐台",
+    "OutdoorChannelVietnam": "户外频道",
+    "PremierSports": "Premier体育台",
+    "PremierSports2": "Premier体育2台",
+    "QuangNamTV": "广南电视台",
+    "SCTV11": "SCTV11台",
+    "SCTV12": "SCTV12台",
+    "SCTV13": "SCTV13台",
+    "SCTV14": "SCTV14台",
+    "SCTV16": "SCTV16台",
+    "SCTV18": "SCTV18台",
+    "SCTV19": "SCTV19台",
+    "SCTV20": "SCTV20台",
+    "SCTV2SD": "SCTV2台",
+    "SCTV3": "SCTV3台",
+    "SCTV4": "SCTV4台",
+    "SCTV6": "SCTV6台",
+    "SCTV7": "SCTV7台",
+    "SCTV9": "SCTV9台",
+    "TAPSports": "TAP体育台",
+    "TVMuslimThailand": "泰国穆斯林电视台",
+    "TayNinhTV": "西宁电视台",
+    "ThaiNguyenTV": "太原电视台",
+    "ThaiPBS": "泰国公共电视台",
+    "ThaiParliamentTelevision": "泰国国会电视台",
+    "ThairathTV": "泰叻电视台",
+    "TienGiangTV": "前江电视台",
+    "VTV1": "越南电视台1台",
+    "VTV10": "越南电视台10台",
+    "VTV2": "越南电视台2台",
+    "VTV3": "越南电视台3台",
+    "VTV4": "越南电视台4台",
+    "VTV5": "越南电视台5台",
+    "VTV5TayNamBo": "越南电视台5台西南部",
+    "VTV5TayNguyen": "越南电视台5台西原",
+    "VTV6": "越南电视台6台",
+    "VTV7": "越南电视台7台",
+    "VTV8": "越南电视台8台",
+    "VTV9": "越南电视台9台",
+    "VinhLongTV1": "永隆电视台1台",
+    "VinhLongTV4": "永隆电视台4台",
+    "VinhLongTV5": "永隆电视台5台",
+}
+
+
+def rename_sea(k, disp, source):
+    """Rename a SEA display name to Chinese when a mapping exists.
+    Only for th/vn/la/ph sources; keeps the resolution / [flag] suffix."""
+    if source not in ("th", "vn", "la", "ph") or k not in SEA_DISPLAY_NAMES:
+        return disp
+    m = _SUFFIX_RE.match(disp)
+    if m:
+        return SEA_DISPLAY_NAMES[k] + m.group(2)
+    return SEA_DISPLAY_NAMES[k]
+
+
 # Channels the user asked to leave out (2026-11-11): CCTV pay channels and
 # past Spring Festival Gala recordings. Matched on the normalized name, so
 # they stay out of every daily rebuild, not just this one snapshot.
@@ -614,6 +731,7 @@ def main():
         disp = to_simp(display)
         disp = DISPLAY_NAMES.get(k, disp)
         disp = rename_jp_kr(k, disp)
+        disp = rename_sea(k, disp, src)
         fk = norm_key(disp)
         if fk in seen_final:
             print(f"  skip rename-collision: {display!r} -> {disp!r} (key {fk})")
@@ -632,6 +750,18 @@ def main():
     _hkmo_sub.sort(key=lambda e: hkmo_tier(e[2]))
     for i, e in zip(_hkmo_idx, _hkmo_sub):
         deduped[i] = e
+
+    # RTHK 31-35 聚在一起（2026-11-14 用户要求）：把港澳台组内的 RTHK 31~35
+    # 按台号排成连续一块，放回第一个 RTHK 原来的位置，其余顺序不动。
+    _rthk_idx = [i for i, e in enumerate(deduped)
+                 if e[5] == "港澳台" and re.fullmatch(r"RTHK3[1-5]", norm_key(e[2]))]
+    if len(_rthk_idx) > 1:
+        _rthk_block = sorted((deduped[i] for i in _rthk_idx),
+                             key=lambda e: int(norm_key(e[2])[4:]))
+        _first = _rthk_idx[0]
+        _rthk_set = set(_rthk_idx)
+        deduped = [e for j, e in enumerate(deduped) if j not in _rthk_set]
+        deduped[_first:_first] = _rthk_block
     print(f"deduped: {len(deduped)}")
     for g in GROUP_ORDER:
         print(f"  group {g}: {sum(1 for e in deduped if e[5] == g)}")
@@ -640,6 +770,14 @@ def main():
     _tiers = [hkmo_tier(d) for _, _, d, _, _, g in deduped if g == "港澳台"]
     assert _tiers == sorted(_tiers), "港澳台 tiers out of order!"
     print(f"  港澳台 tiers 香港/澳门/台湾/其他: {[_tiers.count(t) for t in range(4)]}")
+
+    _rthk_pos = [i for i, e in enumerate(deduped)
+                 if e[5] == "港澳台" and re.fullmatch(r"RTHK3[1-5]", norm_key(e[2]))]
+    if _rthk_pos:
+        assert _rthk_pos == list(range(_rthk_pos[0], _rthk_pos[0] + len(_rthk_pos))), "RTHK not clustered!"
+        assert [int(norm_key(deduped[i][2])[4:]) for i in _rthk_pos] == sorted(
+            int(norm_key(deduped[i][2])[4:]) for i in _rthk_pos), "RTHK out of order!"
+        print(f"  RTHK cluster: {[deduped[i][2] for i in _rthk_pos]}")
     keys = [norm_key(d) for _, _, d, _, _, _ in deduped]
     assert len(keys) == len(set(keys)), "normalized name repeats!"
     disps = [d for _, _, d, _, _, _ in deduped]
@@ -660,7 +798,8 @@ def main():
                  "东森财经新闻", "NHK综合电视台", "日本电视台", "东京电视台", "阿里郎",
                  "翡翠", "中天新闻", "RTHK31", "VTV1", "HTV7", "LS TV",
                  "Abante TV", "Thai PBS", "MCOT HD", "NBT 2 HD",
-                 "Amarin TV"]:
+                 "Amarin TV", "泰国公共电视台", "越南电视台1台",
+                 "胡志明电视台7台", "希望频道"]:
         hit = [d for d in disps if norm_key(d) == norm_key(want)]
         print(f"  check {want}: {'OK ' + str(hit) if hit else 'MISSING'}")
 
