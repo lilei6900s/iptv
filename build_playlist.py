@@ -343,6 +343,36 @@ SOURCE_OVERRIDES = {
     "CCTV16": "http://38.75.136.137:98/gslb/dsdqbv/cctv16hd.m3u8?auth=test20251009",  # 原 207.56 已死 -> 230KB/s，唯一备选
     "东方卫视": "http://107.150.60.122/live/dfwshd.m3u8",  # 原 38.75 -> 2436KB/s
     "甘肃卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd",  # 原 38.75 -> 1874KB/s
+    # 2026-11-14 泰国台缓冲降码率：源是单一码率、无低清晰度可降，
+    # 节点无关（香港/新加坡/日本都缓冲）。thaimomo -3(2.3M)->-2(1.2M，同 576p)；
+    # DLTV 3128k->1328k (SMIL 低码率分片实测可用)；x2/tpchannel 强制 480p。
+    # NBT 未换：iiptvcdn chunklist 会话 ID 每次抓取都变，无法固定低码率地址；
+    # Vipa 未换：音频是独立 EXT-X-MEDIA，单指视频分片会丢声音。
+    "3HD": "https://live-us1.thaimomo.com/live-as/ch3hd-2/playlist.m3u8",
+    "AmarinTV": "https://live-us1.thaimomo.com/live-as/chamarin-2/playlist.m3u8",
+    "Channel8": "https://live-us1.thaimomo.com/live-as/cheight-2/playlist.m3u8",
+    "MCOT": "https://live-us1.thaimomo.com/live-as/chmcothd-2/playlist.m3u8",
+    "NationTV": "https://live-us1.thaimomo.com/live-as/chNation-2/playlist.m3u8",
+    "ThairathTV": "https://live-us1.thaimomo.com/live-as/chthairathhd-2/playlist.m3u8",
+    "WorkpointTV": "https://live-us1.thaimomo.com/live-as/chworkpointt-2/playlist.m3u8",
+    "13SiamThai": "https://live.x2.co.th/live/13livetv-th_480p/index.m3u8",
+    "BoonniyomTV": "https://live.x2.co.th/live/bntv_480p/index.m3u8",
+    "ThaiParliamentTelevision": "https://tv-live.tpchannel.org/live/tv_480p.m3u8?vhost=tv-live.tpchannel.org",
+    "DLTV1": "https://cdn-live.dltv.ac.th/smil:origin01-dltv-01-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV2": "https://cdn-live.dltv.ac.th/smil:origin01-dltv-02-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV3": "https://cdn-live.dltv.ac.th/smil:origin01-dltv-03-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV4": "https://cdn-live.dltv.ac.th/smil:origin01-dltv-04-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV5": "https://cdn-live.dltv.ac.th/smil:origin01-dltv-05-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV6": "https://cdn-live.dltv.ac.th/smil:origin02-dltv-06-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV7": "https://cdn-live.dltv.ac.th/smil:origin02-dltv-07-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV8": "https://cdn-live.dltv.ac.th/smil:origin02-dltv-08-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV9": "https://cdn-live.dltv.ac.th/smil:origin02-dltv-09-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV10": "https://cdn-live.dltv.ac.th/smil:origin02-dltv-10-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV11": "https://cdn-live.dltv.ac.th/smil:origin03-dltv-11-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV12": "https://cdn-live.dltv.ac.th/smil:origin03-dltv-12-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV13": "https://cdn-live.dltv.ac.th/smil:origin03-dltv-13-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV14": "https://cdn-live.dltv.ac.th/smil:origin03-dltv-14-adaptive.smil/chunklist_b1328000_slth.m3u8",
+    "DLTV15": "https://cdn-live.dltv.ac.th/smil:origin03-dltv-15-adaptive.smil/chunklist_b1328000_slth.m3u8",
     # 港澳台 5 个台的新源（2026-11-11 全表排查后找到，变体列表实测有直播分片）
     "明珠": "http://r.jdshipin.com/jUx8K",  # TVB明珠台，原 163189 中继返回空列表
     "凤凰中文": "http://php.jdshipin.com/TVOD/iptv.php?id=fhzw",  # 与凤凰卫视台同一条流
@@ -784,12 +814,18 @@ def main():
     assert len(disps) == len(set(disps)), "display name repeats!"
     assert not any("春晚" in d for d in disps), "春晚 entries remain!"
     assert not any(norm_key(d) in EXCLUDE_KEYS for d in disps), "pay channels remain!"
+    # overrides are keyed by the ORIGINAL norm_key, but renamed channels are
+    # stored under their Chinese display name (suffix kept), so undo renames
+    # via the reverse display-name maps before comparing
+    _rev = {v: k for k, v in {**DISPLAY_NAMES, **JP_KR_DISPLAY_NAMES, **SEA_DISPLAY_NAMES}.items()}
     for name, want_url in SOURCE_OVERRIDES.items():
-        # a display-mapped channel (e.g. 原住民电视) is stored under its
-        # Chinese display name, so look it up through the reverse map too
+        def _orig_key(d):
+            m = _SUFFIX_RE.match(d)
+            core = m.group(1) if m else d
+            return _rev.get(core, core)
         hit = [u for _, _, d, u, _, _ in deduped
                if norm_key(d) == norm_key(name)
-               or {v: k for k, v in DISPLAY_NAMES.items()}.get(d) == norm_key(name)]
+               or norm_key(_orig_key(d)) == norm_key(name)]
         assert hit and hit[0] == want_url, f"override missing for {name}"
     assert [e[5] for e in deduped] == sorted(
         [e[5] for e in deduped], key=lambda g: GROUP_ORDER.index(g)), "groups out of order!"
