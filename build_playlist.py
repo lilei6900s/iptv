@@ -415,9 +415,14 @@ SOURCE_OVERRIDES = {
 # 插入点在全部校验之后（校验要求显示名唯一），只进 deduped 列表，
 # 不进 merged 备份文件。2026-11-15 用户要求：直接修进主列表，不再走测试订阅。
 EXTRA_LINES = {
-    # CCTV-5 线路2：gaoma 高码候选（沙箱无法连通，清晰度/可用性待用户实测；
-    # 若不行按顺序换 117.144.58.42 / 3.itv.nctv.top / tv.kmhlzxs.top / mg.20191209.xyz）
-    "CCTV5": ["http://www.douzhicloud.site:35455/gaoma/cctv5.m3u8"],
+    # CCTV-5 线路2-5：gaoma 高码候选（沙箱无法连通，待用户实测）。
+    # douzhicloud 已于 2026-11-15 03:58 用户实测超时（家中网+代理），已撤下；
+    # 以下 4 家同族候选一次全挂上，用户一次试完。若全超时则 gaoma 全族作废，
+    # 改等真正可验证的高清源再换（用户 standing 要求：有高清源就换掉）。
+    "CCTV5": ["http://117.144.58.42:35455/gaoma/cctv5.m3u8",
+              "http://3.itv.nctv.top:35455/gaoma/cctv5.m3u8",
+              "http://tv.kmhlzxs.top:35455/gaoma/cctv5.m3u8",
+              "http://mg.20191209.xyz:58888/gaoma/cctv5.m3u8"],
 }
 
 # 越南/老挝/菲律宾只收实测能播的源（用户要求这三个组的台必须是好的）。
