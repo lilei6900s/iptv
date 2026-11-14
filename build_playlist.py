@@ -344,17 +344,18 @@ SOURCE_OVERRIDES = {
     "东方卫视": "http://107.150.60.122/live/dfwshd.m3u8",  # 原 38.75 -> 2436KB/s
     "甘肃卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd",  # 原 38.75 -> 1874KB/s
     # 2026-11-14 泰国台缓冲降码率：源是单一码率、无低清晰度可降，
-    # 节点无关（香港/新加坡/日本都缓冲）。thaimomo -3(2.3M)->-2(1.2M，同 576p)；
+    # 节点无关（香港/新加坡/日本都缓冲）。thaimomo -3(2.3M)->-2(1.2M，同 576p)，
+    # -2 在用户线路上仍缓冲（实测约 100-200KB/s），13:16 再降到 -1(0.8-1.0M, 240p)；
     # DLTV 3128k->1328k (SMIL 低码率分片实测可用)；x2/tpchannel 强制 480p。
     # NBT 未换：iiptvcdn chunklist 会话 ID 每次抓取都变，无法固定低码率地址；
     # Vipa 未换：音频是独立 EXT-X-MEDIA，单指视频分片会丢声音。
-    "3HD": "https://live-us1.thaimomo.com/live-as/ch3hd-2/playlist.m3u8",
-    "AmarinTV": "https://live-us1.thaimomo.com/live-as/chamarin-2/playlist.m3u8",
-    "Channel8": "https://live-us1.thaimomo.com/live-as/cheight-2/playlist.m3u8",
-    "MCOT": "https://live-us1.thaimomo.com/live-as/chmcothd-2/playlist.m3u8",
-    "NationTV": "https://live-us1.thaimomo.com/live-as/chNation-2/playlist.m3u8",
-    "ThairathTV": "https://live-us1.thaimomo.com/live-as/chthairathhd-2/playlist.m3u8",
-    "WorkpointTV": "https://live-us1.thaimomo.com/live-as/chworkpointt-2/playlist.m3u8",
+    "3HD": "https://live-us1.thaimomo.com/live-as/ch3hd-1/playlist.m3u8",
+    "AmarinTV": "https://live-us1.thaimomo.com/live-as/chamarin-1/playlist.m3u8",
+    "Channel8": "https://live-us1.thaimomo.com/live-as/cheight-1/playlist.m3u8",
+    "MCOT": "https://live-us1.thaimomo.com/live-as/chmcothd-1/playlist.m3u8",
+    "NationTV": "https://live-us1.thaimomo.com/live-as/chNation-1/playlist.m3u8",
+    "ThairathTV": "https://live-us1.thaimomo.com/live-as/chthairathhd-1/playlist.m3u8",
+    "WorkpointTV": "https://live-us1.thaimomo.com/live-as/chworkpointt-1/playlist.m3u8",
     "13SiamThai": "https://live.x2.co.th/live/13livetv-th_480p/index.m3u8",
     "BoonniyomTV": "https://live.x2.co.th/live/bntv_480p/index.m3u8",
     "ThaiParliamentTelevision": "https://tv-live.tpchannel.org/live/tv_480p.m3u8?vhost=tv-live.tpchannel.org",
