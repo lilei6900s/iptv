@@ -342,7 +342,7 @@ SOURCE_OVERRIDES = {
     "CCTV2": "http://74.91.26.218:82/live/cctv2hd.m3u8",  # 待测：原 107.150 播广告
     "CCTV3": "http://74.91.26.218:82/live/cctv3hd.m3u8",  # 待测：原 63.141 播广告
     "CCTV4": "https://h5cul1yar48um3t.wcetv.com/hls/cctv4.m3u8",  # 已验：帧确认 CCTV-4 美洲版真实内容
-    "CCTV5": "http://ivi.bupt.edu.cn/hls/cctv5hd.m3u8",  # 待测：北邮教育网源；198.204.240黑屏、107.150播广告、74.91无此台；沙箱无法直连，待用户实测
+    "CCTV5": "http://221.226.51.220:50081/newlive/live/hls/5/live.m3u8",  # 2026-11-14 帧验证为真CCTV-5(体育主播+台标)；沙箱测速慢(9KB/s)但为电信直连源，国内实测为准；ivi黑屏、catvod全是广告、gaoma沙箱不可达
     "CCTV5+": "http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8",  # 待测：北邮教育网源；jdshipin跳转已死163189、bfgd播广告；沙箱无法直连，待用户实测
     "CCTV6": "http://74.91.26.218:82/live/cctv6hd.m3u8",  # 待测：原 63.141 播广告
     "CCTV7": "http://74.91.26.218:82/live/cctv7hd.m3u8",  # 待测：原 107.150 播广告
