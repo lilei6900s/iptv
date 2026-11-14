@@ -92,6 +92,8 @@ ALIASES = {
     "MeiAhMovieChannel": "美亚电影",
     "广东大湾区": "大湾区卫视",
     "EBSKids": "韩国EBS少儿",  # upstream added 韩国EBS少儿; same channel as EBS Kids
+    "河南梨园": "梨园",  # bestK 的死源与 Guovin 的直播源是同一个台，合并后取先到的直播源
+    "湖州公共": "湖州公共民生",  # 同上：bestK 的 freetv 死源与 Guovin 的直播源合并
 }
 
 
@@ -400,6 +402,12 @@ SOURCE_OVERRIDES = {
     "凤凰资讯": "http://php.jdshipin.com/TVOD/iptv.php?id=fhzx",  # 替换原来的 FLV 直连
     "千禧经典": "http://php.jdshipin.com/TVOD/iptv.php?id=tvbc",  # TVB千禧经典台
     "无线星河": "http://php.jdshipin.com/TVOD/iptv.php?id=xinghe",  # TVB无线星河
+    # 全量排查修复（2026-11-14）：以下 5 个台的上游源已死，改用实测直播源
+    "CCTV6电影": "http://74.91.26.218:82/live/cctv6hd.m3u8",  # 与 CCTV-6 同源；原 1905 PHP 已坏
+    "安多卫视": "http://play.kankanlive.com/live/1711956137852982.m3u8",  # DB AndoTV.cn，内容待用户确认
+    "新昌新闻综合": "https://l.cztvcloud.com/channels/lantian/SXxinchang1/720p.m3u8",
+    "武进生活": "https://live.wjyanghu.com/live/CH2.m3u8",
+    "TonghuaTV": "http://139.211.217.79:9004/hls/75/index.m3u8",  # 沙箱测速很慢，唯一直播源
 }
 
 # 越南/老挝/菲律宾只收实测能播的源（用户要求这三个组的台必须是好的）。
@@ -719,6 +727,13 @@ def parse(text):
                 vlcopts.append(lines[j])
                 j += 1
             url = lines[j].strip() if j < len(lines) else ""
+            # 上游 URL 偶带畸形字符：末尾多余的引号、查询串里的原始方括号
+            # （微信推广标签），播放器无法解析。只清洗查询串里的方括号，
+            # 避免误伤 IPv6 字面量；引号只去末尾的。
+            url = url.rstrip('"')
+            if "?" in url:
+                _base, _, _q = url.partition("?")
+                url = _base + "?" + _q.replace("[", "%5B").replace("]", "%5D")
             entries.append((line, display, url, vlcopts))
             i = j + 1
         else:
@@ -755,6 +770,11 @@ def main():
         # m3u8 player cannot play. Drop them so they never appear as dead
         # channels (20 entries across 港澳台/日韩/其他）.
         if "raw.githubusercontent.com/ChiSheng9" in url:
+            n_excluded += 1
+            continue
+        # DASH (.mpd) 无法在 APTV 播放（只支持 HLS）：直接排除，避免列表里
+        # 留一个永远播不了的台（目前只有 MNB World 一个，2026-11-14 全量排查）。
+        if url.split("?", 1)[0].lower().endswith(".mpd"):
             n_excluded += 1
             continue
         if src in ("vn", "la", "ph") and url not in LIVE_SEA_URLS:
