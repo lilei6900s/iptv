@@ -331,16 +331,30 @@ SOURCE_OVERRIDES = {
     # 2026-11-13 测速换源：避开已死/极慢的中继后端（实测分片速度见注释）。
     # 74.91 中继会跳转到 192.187.115.106，后端只有约 135KB/s；tvbus 与
     # 207.56 已无响应；38.75 的跳转目标不稳定，时快时慢。
-    "CCTV2": "http://107.150.60.122/live/cctv2hd.m3u8",  # 原 204.12，654KB/s -> 1307KB/s
-    "CCTV4": "http://107.150.60.122/live/cctv4hd.m3u8",  # 原 74.91 慢后端 -> 1929KB/s
-    "CCTV5+": "http://120.76.248.139/live/bfgd/4200000246.m3u8",  # 原 38.75，5 秒分片 -> 1085KB/s
-    "CCTV6": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv6hd",  # 原 69.30 已死 -> 2559KB/s
-    "CCTV7": "http://107.150.60.122/live/cctv7hd.m3u8",  # 原 74.91 慢后端 -> 1861KB/s
-    "CCTV8": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv8k",  # 原 tvbus 已死 -> 2465KB/s
-    "CCTV11": "http://198.204.228.26/live/cctv11hd.m3u8",  # 原 74.91 慢后端 -> 2821KB/s
-    "CCTV13": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv13hd",  # 原 38.75，153KB/s -> 1853KB/s
-    "CCTV15": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cctv15hd",  # 原 204.12 -> 1773KB/s
-    "CCTV16": "http://38.75.136.137:98/gslb/dsdqbv/cctv16hd.m3u8?auth=test20251009",  # 原 207.56 已死 -> 230KB/s，唯一备选
+    # 2026-11-14 13:35 央视广告事件：除 CCTV-1 外所有央视台播同一推销广告，
+    # 中继网(63.141/107.150/38.75/198.204/120.76)疑似全线改播广告循环，且其分片
+    # 现已拒绝本沙箱请求(404)，无法在此验证内容。以下分两类：
+    # [已验] 帧画面确认真实内容：CCTV4->WCETV美洲版，CCTV9->livehwc4(Y77)，
+    # CCTV10->SkyGo。[待测] 仅播放列表可达、内容待用户实测：其余改 74.91 /
+    # 198.204.240 / jdshipin / GITV；用户反馈哪个仍是广告就再换。
+    "CCTV2": "http://74.91.26.218:82/live/cctv2hd.m3u8",  # 待测：原 107.150 播广告
+    "CCTV3": "http://74.91.26.218:82/live/cctv3hd.m3u8",  # 待测：原 63.141 播广告
+    "CCTV4": "https://h5cul1yar48um3t.wcetv.com/hls/cctv4.m3u8",  # 已验：帧确认 CCTV-4 美洲版真实内容
+    "CCTV5": "http://198.204.240.250:82/live/cctv5.m3u8",  # 待测：原 107.150 播广告
+    "CCTV5+": "https://php.jdshipin.com/TVOD/iptv.php?id=cctv5p",  # 待测：原 bfgd 播广告
+    "CCTV6": "http://74.91.26.218:82/live/cctv6hd.m3u8",  # 待测：原 63.141 播广告
+    "CCTV7": "http://74.91.26.218:82/live/cctv7hd.m3u8",  # 待测：原 107.150 播广告
+    "CCTV8": "http://74.91.26.218:82/live/cctv8hd.m3u8",  # 待测：原 63.141 播广告
+    "CCTV9": "https://xykt-fix.github.io/Y77.m3u8",  # 已验：帧确认 CCTV-9 纪录真实内容
+    "CCTV10": "https://cdn4.skygo.mn/live/disk1/CCTV-10/HLSv3-FTA/CCTV-10.m3u8",  # 已验：帧确认 CCTV-10 科教真实内容
+    "CCTV11": "http://74.91.26.218:82/live/cctv11hd.m3u8",  # 待测：原 198.204.228 播广告
+    "CCTV12": "http://74.91.26.218:82/live/cctv12hd.m3u8",  # 待测：原 107.150 播广告
+    "CCTV13": "http://74.91.26.218:82/live/cctv13hd.m3u8",  # 待测：原 63.141 播广告
+    "CCTV14": "http://74.91.26.218:82/live/cctv14hd.m3u8",  # 待测：原 198.204.228 播广告
+    "CCTV15": "http://74.91.26.218:82/live/cctv15hd.m3u8",  # 待测：原 63.141 播广告
+    "CCTV16": "http://198.204.240.250:82/live/cctv16hd.m3u8",  # 待测：原 38.75 播广告
+    "CCTV17": "http://74.91.26.218:82/live/cctv17hd.m3u8",  # 待测：原 264788 播广告
+    "CETV1": "http://117.161.133.51:81/gitv_live/G_CETV-1/G_CETV-1.m3u8?p=GITV",  # 待测：原 198.204.228 播广告；沙箱无法直连
     "东方卫视": "http://107.150.60.122/live/dfwshd.m3u8",  # 原 38.75 -> 2436KB/s
     "甘肃卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd",  # 原 38.75 -> 1874KB/s
     # 2026-11-14 泰国台缓冲降码率：源是单一码率、无低清晰度可降，
