@@ -410,6 +410,16 @@ SOURCE_OVERRIDES = {
     "TonghuaTV": "http://139.211.217.79:9004/hls/75/index.m3u8",  # 沙箱测速很慢，唯一直播源
 }
 
+# 备用线路：同名同组多一条 URL，APTV 会显示为同一频道的多条线路
+# （线路1 = 已验证能播的源，线路2起 = 待验证的候选）。键为 norm_key。
+# 插入点在全部校验之后（校验要求显示名唯一），只进 deduped 列表，
+# 不进 merged 备份文件。2026-11-15 用户要求：直接修进主列表，不再走测试订阅。
+EXTRA_LINES = {
+    # CCTV-5 线路2：gaoma 高码候选（沙箱无法连通，清晰度/可用性待用户实测；
+    # 若不行按顺序换 117.144.58.42 / 3.itv.nctv.top / tv.kmhlzxs.top / mg.20191209.xyz）
+    "CCTV5": ["http://www.douzhicloud.site:35455/gaoma/cctv5.m3u8"],
+}
+
 # 越南/老挝/菲律宾只收实测能播的源（用户要求这三个组的台必须是好的）。
 # 2026-11-13 逐条验证：120 条里 94 条直播（取到 m3u8 且首个分片能下载），
 # 其余 26 条（403/404/超时/非 HLS）不在此表，每天重建也不会把它们加回来。
@@ -879,6 +889,18 @@ def main():
                  "胡志明电视台7台", "希望频道"]:
         hit = [d for d in disps if norm_key(d) == norm_key(want)]
         print(f"  check {want}: {'OK ' + str(hit) if hit else 'MISSING'}")
+
+    # 备用线路：在全部校验之后插入（校验要求显示名唯一），紧跟主条目之后，
+    # 只进 deduped 列表。APTV 同名同组条目显示为同一频道的多条线路。
+    for _key, _urls in EXTRA_LINES.items():
+        for _i, _e in enumerate(deduped):
+            if norm_key(_e[2]) == norm_key(_key):
+                for _j, _u in enumerate(_urls):
+                    deduped.insert(_i + 1 + _j, (_e[0], _e[1], _e[2], _u, [], _e[5]))
+                print(f"  extra lines for {_e[2]}: {len(_urls)}")
+                break
+        else:
+            raise AssertionError(f"EXTRA_LINES key not found: {_key}")
 
     def render(entries, regroup=False):
         out = list(header) + [""]
