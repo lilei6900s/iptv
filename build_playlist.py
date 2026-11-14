@@ -352,13 +352,19 @@ SOURCE_OVERRIDES = {
     "3HD": "https://live-us1.thaimomo.com/live-as/ch3hd-2/playlist.m3u8",
     "AmarinTV": "https://live-us1.thaimomo.com/live-as/chamarin-2/playlist.m3u8",
     "Channel8": "https://live-us1.thaimomo.com/live-as/cheight-2/playlist.m3u8",
-    "MCOT": "https://live-us1.thaimomo.com/live-as/chmcothd-2/playlist.m3u8",
+    "MCOT": "https://mcothd-streaming-edge-cdn.mcot.net/tencentmcot/smil:tencentmcot.smil/playlist.m3u8",  # 官方源主播放列表，AVPlayer 自适应(500k-3M)
     "NationTV": "https://live-us1.thaimomo.com/live-as/chNation-2/playlist.m3u8",
     "ThairathTV": "https://live-us1.thaimomo.com/live-as/chthairathhd-2/playlist.m3u8",
     "WorkpointTV": "https://live-us1.thaimomo.com/live-as/chworkpointt-2/playlist.m3u8",
     "13SiamThai": "https://live.x2.co.th/live/13livetv-th_480p/index.m3u8",
     "BoonniyomTV": "https://live.x2.co.th/live/bntv_480p/index.m3u8",
     "ThaiParliamentTelevision": "https://tv-live.tpchannel.org/live/tv_480p.m3u8?vhost=tv-live.tpchannel.org",
+    # 2026-11-14 13:2x 换源（非码率问题）：CCTV-1 播放正常，证明用户线路没问题，
+    # 是 thaimomo 服务器本身脆弱（分片窗口仅 1-3 个、90 秒过期）。以下 3 台换到
+    # 其他主机（均实测可用）：ThaiPBS->ByteArk 480p（600 分片大窗口）；
+    # News1->live14 低码率（6 分片）。v2h-cdn 全部 403（泰国限定），其余台无替代源。
+    "ThaiPBS": "https://thaipbs-live.cdn.byteark.com/live/playlist_480p/index.m3u8",
+    "News1": "http://news1.live14.com/stream/news1_low.m3u8",
     "DLTV1": "https://cdn-live.dltv.ac.th/smil:origin01-dltv-01-adaptive.smil/chunklist_b1328000_slth.m3u8",
     "DLTV2": "https://cdn-live.dltv.ac.th/smil:origin01-dltv-02-adaptive.smil/chunklist_b1328000_slth.m3u8",
     "DLTV3": "https://cdn-live.dltv.ac.th/smil:origin01-dltv-03-adaptive.smil/chunklist_b1328000_slth.m3u8",
