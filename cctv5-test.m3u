@@ -1,0 +1,37 @@
+#EXTM3U
+#EXTINF:-1 group-title="测试",CCTV-5 测试1-交大
+http://202.120.58.89/hls/cctv5hd.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5 测试2-河南科大
+http://hdtv.haust.edu.cn/hls/cctv5hd.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5 测试3-北交大
+http://ipv6.bjtu.edu.cn/hls/cctv5hd.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5 测试4-移动咪咕
+http://cache.ott.fifalive.itv.cmvideo.cn:80/1000000001000004794/1.m3u8?Contentid=1000000001000004794&livemode=1&stbId=3&channel-id=ystenlive
+#EXTINF:-1 group-title="测试",CCTV-5 测试5-百视通
+http://shbu.live.bestvcdn.com.cn:8080/live/program/live/cctv5hd/4000000/mnf.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5 测试6-当涂
+http://newvideo.dangtutv.cn:8278/CCTVsports/playlist.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5 测试7-111.63
+http://111.63.117.13:6060/030000001000/CCTV-5/CCTV-5.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5 测试8-PLTV
+http://39.134.66.110/PLTV/88888888/224/3221225818/index.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5 对照-北邮ivi
+http://ivi.bupt.edu.cn/hls/cctv5hd.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5+ 测试1-交大
+http://202.120.58.89/hls/cctv5phd.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5+ 测试2-河南科大
+http://hdtv.haust.edu.cn/hls/cctv5phd.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5+ 测试3-北交大
+http://ipv6.bjtu.edu.cn/hls/cctv5phd.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5+ 测试4-移动咪咕
+http://cache.ott.fifalive.itv.cmvideo.cn:80/1000000001000020505/1.m3u8?Contentid=1000000001000020505&livemode=1&stbId=3&channel-id=ystenlive
+#EXTINF:-1 group-title="测试",CCTV-5+ 测试5-111.63
+http://111.63.117.13:6060/030000001000/G_CCTV-5PLUS/G_CCTV-5PLUS.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5+ 测试6-PLTV
+http://111.20.33.93/PLTV/88888893/224/3221226221/index.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5+ 测试7-PLTV39
+http://39.134.66.110/PLTV/88888888/224/3221225507/index.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5+ 测试8-PLTV112
+http://112.17.40.140/PLTV/88888888/224/3221226166/index.m3u8
+#EXTINF:-1 group-title="测试",CCTV-5+ 对照-北邮ivi
+http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8
