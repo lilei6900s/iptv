@@ -1,0 +1,31 @@
+#!name=Spotify Premium
+#!desc=会员配置、首页与播放页去广告，集成歌词补全和双语翻译（转自 Reukix/ukix 2026-11-14，适配 Spotify 9.1.98）
+#!author=Reukix（原模块）；Loon 格式转换
+#!openUrl=https://github.com/Reukix/ukix
+# 转换自 Reukix/ukix 的 Spotify.sgmodule（2026-11-14），正则与脚本 URL 全部原文照搬，仅改写为 Loon 插件格式。
+# 转换说明：
+# - [Rule] 已省略：QUIC 拦截由 Loon 设置里的「QUIC 回退保护」（已开启）覆盖；aet.spotify.com 仅遥测上报。
+# - [Map Local] 的 gabo-receiver-service 改为等价的 reject-200（200 空响应）。
+# - 歌词参数取模块默认值：Lyrics=true、Translate=true、TargetLanguage=zh-CN。
+# 使用前请先停用旧的 SpotifyPremium.plugin，避免重复处理同一接口。
+# 重要：这是显示层解锁（改 protobuf 配置），服务器仍识别为免费账号；
+# 若歌曲播几秒就跳过，是服务器端限制，不是插件失效。只有真 Premium 才能稳定完整播放。
+
+[Rewrite]
+^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/(?:user-customization-service\/v1\/customize|nebula\/v1\/configuration\/attributes|remote-config-resolver\/v3\/configuration)\/?(?:\?[^#]*)?$ header-del if-none-match
+^https:\/\/(spclient\.wg|.*-spclient)\.spotify\.com(:443)?\/pendragon - reject
+^https:\/\/.*-spclient\.spotify\.com(:443)?\/pam-view-service\/ - reject
+^https:\/\/.*37i9dQZF1EYkqdzj48dyYq - reject
+^https:\/\/(.*-spclient\.spotify\.com(:443)?|spclient\.wg\.spotify\.com)\/gabo-receiver-service - reject-200
+
+[Mitm]
+hostname = spclient.wg.spotify.com, *spclient.spotify.com, *-spclient.wg.spotify.com
+
+[Script]
+http-response ^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/(?:bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize|nebula\/v1\/configuration\/attributes|remote-config-resolver\/v3\/configuration)\/?(?:\?[^#]*)?$ script-path=https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-proto.js, requires-body=true, binary-body-mode=true, timeout=10, tag=spotify-proto
+http-response ^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/casita\/v1\/home\/default\/?(?:\?[^#]*)?$ script-path=https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-home.js?v=0e4692c6dc47, requires-body=true, binary-body-mode=true, timeout=10, tag=spotify-home
+http-response ^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/browsita\/v.\/browse script-path=https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-search.js, requires-body=true, binary-body-mode=true, timeout=10, tag=spotify-search
+http-response ^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/scrollsita\/v[0-9]+\/scroll\/spotify:[^?#]+(?:\?[^#]*)?$ script-path=https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-lyrics.js?v=caf13ded9c7b, requires-body=true, binary-body-mode=true, timeout=8, tag=spotify-lyrics-scroll, argument=Lyrics=true&Translate=true&TargetLanguage=zh-CN
+http-response ^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/color-lyrics\/v2\/track\/[A-Za-z0-9]{22}(?:\/image\/[^/?#]+)?\/?(?:\?[^#]*)?$ script-path=https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-lyrics.js?v=caf13ded9c7b, requires-body=true, binary-body-mode=true, timeout=20, tag=spotify-lyrics-color, argument=Lyrics=true&Translate=true&TargetLanguage=zh-CN
+http-response ^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/(?:extended-metadata\/v0\/extended-metadata|metadata\/4\/track\/[a-fA-F0-9]{32})(?:\?[^#]*)?$ script-path=https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-lyrics.js?v=caf13ded9c7b, requires-body=true, binary-body-mode=true, timeout=20, tag=spotify-lyrics-meta, argument=Lyrics=true&Translate=true&TargetLanguage=zh-CN
+http-response ^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/connect-state\/v1\/devices\/[^/?#]+\/?(?:\?[^#]*)?$ script-path=https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-lyrics.js?v=caf13ded9c7b, requires-body=true, binary-body-mode=true, timeout=20, tag=spotify-lyrics-connect, argument=Lyrics=true&Translate=true&TargetLanguage=zh-CN
