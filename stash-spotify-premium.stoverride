@@ -1,0 +1,105 @@
+# Spotify Premium 解锁（Stash 覆写）
+# 转换自 Reukix/ukix 的 Spotify.sgmodule（2026-11-14，适配 Spotify 9.1.98），
+# 正则与脚本 URL 全部原文照搬，仅改写为 Stash override 格式。
+# 转换说明：
+# - [Rule] 的 QUIC 拦截已省略：ZacBi 覆写的首条规则已全局拦截 UDP 443。
+# - [Rule] 的 aet.spotify.com 拦截已省略（仅遥测上报），使本覆写不含 rules 段，
+#   在覆写列表中的位置不受 ZacBi 的 #!replace 影响，放哪里都行。
+# - [Map Local] 的 gabo-receiver-service 改为等价的 reject-200（200 空响应）。
+# - 歌词参数取模块默认值：Lyrics=true、Translate=true、TargetLanguage=zh-CN。
+# 生效条件：Stash 首页 MITM 开关打开，且 Stash CA 已安装并在 iOS 设置中信任。
+# 重要：这是显示层解锁（改 protobuf 配置），服务器仍识别为免费账号；
+# 若歌曲播几秒就跳过，是服务器端限制，不是覆写失效。只有真 Premium 才能稳定完整播放。
+name: Spotify Premium 解锁
+desc: '会员配置、首页与播放页去广告，集成歌词补全和双语翻译（转自 Reukix/ukix 2026-11-14）'
+author: 'Reukix（原模块）；Stash 格式转换'
+homepage: 'https://github.com/Reukix/ukix'
+category: '🎵 Spotify'
+
+http:
+  mitm:
+    - spclient.wg.spotify.com
+    - '*spclient.spotify.com'
+    - '*-spclient.wg.spotify.com'
+
+  header-rewrite:
+    - '^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/(?:user-customization-service\/v1\/customize|nebula\/v1\/configuration\/attributes|remote-config-resolver\/v3\/configuration)\/?(?:\?[^#]*)?$ request-del if-none-match'
+
+  url-rewrite:
+    - '^https:\/\/(spclient\.wg|.*-spclient)\.spotify\.com(:443)?\/pendragon - reject'
+    - '^https:\/\/.*-spclient\.spotify\.com(:443)?\/pam-view-service\/ - reject'
+    - '^https:\/\/.*37i9dQZF1EYkqdzj48dyYq - reject'
+    - '^https:\/\/(.*-spclient\.spotify\.com(:443)?|spclient\.wg\.spotify\.com)\/gabo-receiver-service - reject-200'
+
+  script:
+    # 会员配置（bootstrap / customize / nebula / remote-config）：核心解锁
+    - match: '^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/(?:bootstrap\/v1\/bootstrap|user-customization-service\/v1\/customize|nebula\/v1\/configuration\/attributes|remote-config-resolver\/v3\/configuration)\/?(?:\?[^#]*)?$'
+      name: spotify-proto
+      type: response
+      require-body: true
+      binary-mode: true
+      timeout: 30
+    # 首页去广告（casita）
+    - match: '^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/casita\/v1\/home\/default\/?(?:\?[^#]*)?$'
+      name: spotify-home
+      type: response
+      require-body: true
+      binary-mode: true
+      timeout: 30
+    # 搜索页去广告（browsita）
+    - match: '^https:\/\/(spclient\.wg\.spotify\.com|.*-spclient\.spotify\.com(:443)?)\/browsita\/v.\/browse'
+      name: spotify-search
+      type: response
+      require-body: true
+      binary-mode: true
+      timeout: 30
+    # 歌词补全与翻译（scrollsita）
+    - match: '^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/scrollsita\/v[0-9]+\/scroll\/spotify:[^?#]+(?:\?[^#]*)?$'
+      name: spotify-lyrics
+      type: response
+      require-body: true
+      binary-mode: true
+      timeout: 8
+      max-size: 2097152
+      argument: 'Lyrics=true&Translate=true&TargetLanguage=zh-CN'
+    # 歌词补全与翻译（color-lyrics）
+    - match: '^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/color-lyrics\/v2\/track\/[A-Za-z0-9]{22}(?:\/image\/[^/?#]+)?\/?(?:\?[^#]*)?$'
+      name: spotify-lyrics
+      type: response
+      require-body: true
+      binary-mode: true
+      timeout: 20
+      max-size: 2097152
+      argument: 'Lyrics=true&Translate=true&TargetLanguage=zh-CN'
+    # 歌词补全与翻译（extended-metadata / metadata）
+    - match: '^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/(?:extended-metadata\/v0\/extended-metadata|metadata\/4\/track\/[a-fA-F0-9]{32})(?:\?[^#]*)?$'
+      name: spotify-lyrics
+      type: response
+      require-body: true
+      binary-mode: true
+      timeout: 20
+      max-size: 2097152
+      argument: 'Lyrics=true&Translate=true&TargetLanguage=zh-CN'
+    # 歌词补全与翻译（connect-state）
+    - match: '^https:\/\/(?:[A-Za-z0-9-]+-)?spclient(?:\.wg)?\.spotify\.com(?::443)?\/connect-state\/v1\/devices\/[^/?#]+\/?(?:\?[^#]*)?$'
+      name: spotify-lyrics
+      type: response
+      require-body: true
+      binary-mode: true
+      timeout: 20
+      max-size: 2097152
+      argument: 'Lyrics=true&Translate=true&TargetLanguage=zh-CN'
+
+script-providers:
+  spotify-proto:
+    url: https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-proto.js
+    interval: 86400
+  spotify-home:
+    url: https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-home.js?v=0e4692c6dc47
+    interval: 86400
+  spotify-search:
+    url: https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-search.js
+    interval: 86400
+  spotify-lyrics:
+    url: https://raw.githubusercontent.com/Reukix/ukix/refs/heads/main/js/Spotify-lyrics.js?v=caf13ded9c7b
+    interval: 86400
