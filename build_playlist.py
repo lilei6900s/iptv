@@ -357,6 +357,7 @@ SOURCE_OVERRIDES = {
     "CCTV16": "http://198.204.240.250:82/live/cctv16hd.m3u8",  # 待测：原 38.75 播广告
     "CCTV17": "http://74.91.26.218:82/live/cctv17hd.m3u8",  # 待测：原 264788 播广告
     "CETV1": "http://117.161.133.51:81/gitv_live/G_CETV-1/G_CETV-1.m3u8?p=GITV",  # 待测：原 198.204.228 播广告；沙箱无法直连
+    "CETV2": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225756/index.m3u8",  # 待测：中国移动 PLTV 源（xiaolvdouya ff.txt 2026-11-15，CETV1/3/4 同族 ID 印证）；原 catvod 全是广告招租 slate；沙箱无法直连，待用户实测
     "东方卫视": "http://107.150.60.122/live/dfwshd.m3u8",  # 原 38.75 -> 2436KB/s
     "甘肃卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd",  # 原 38.75 -> 1874KB/s
     # 2026-11-14 泰国台缓冲降码率：源是单一码率、无低清晰度可降，
