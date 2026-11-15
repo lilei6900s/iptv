@@ -1,0 +1,11 @@
+#!name=钉钉直连
+#!desc=钉钉裸 IP 强制直连：dingtalk.com 域名已走国内直连规则，但钉钉还有裸 IP 连接，命中不了任何规则会掉到 MATCH 走代理，导致一直转圈（2026-11-15）
+#!author=Muse
+
+# 注意：这个覆写在列表里的位置必须在 ZacBi 覆写之下（后应用），
+# 否则 ZacBi 的 rules #!replace 会盖掉这些规则。与 IPTV 覆写放一起即可，
+# 两者规则不重叠。
+rules: #!prepend
+  - "IP-CIDR,59.82.31.101/32,DIRECT,no-resolve"
+  - "IP-CIDR,203.119.144.18/32,DIRECT,no-resolve"
+  - "IP-CIDR,124.239.14.237/32,DIRECT,no-resolve"
