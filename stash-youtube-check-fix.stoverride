@@ -4,13 +4,21 @@
 
 # 只替换检测脚本的来源，不碰面板定义、分组和规则，
 # 与 ZacBi 覆写、IPTV 覆写、DingTalk 覆写无冲突，位置无关。
-# YouTube-Check 是 StashNetworks/misc 示例的标准名；多写一个 YouTube 兜底，
-# 机场若用另一个名字也能命中，未命中的那个不会被任何面板引用，无害。
+# 覆盖 4 个可能的内部名（机场配置的实际名无法从沙箱验证，订阅接口被 Cloudflare 挡住）：
+# YouTube-Check 是 StashNetworks/misc 示例的标准名；其余是常见的变体。
+# 未命中的名字不会被任何面板引用，无害。
+# path 显式指定：Stash 会缓存已下载的脚本，新路径逼它重新下载，不跑旧缓存。
 
 script-providers:
   YouTube-Check:
     url: https://raw.githubusercontent.com/lilei6900s/iptv/main/youtube-check-fixed.js
     path: youtube-check-fixed.js
   YouTube:
+    url: https://raw.githubusercontent.com/lilei6900s/iptv/main/youtube-check-fixed.js
+    path: youtube-check-fixed.js
+  Youtube-Check:
+    url: https://raw.githubusercontent.com/lilei6900s/iptv/main/youtube-check-fixed.js
+    path: youtube-check-fixed.js
+  YouTube-Premium-Check:
     url: https://raw.githubusercontent.com/lilei6900s/iptv/main/youtube-check-fixed.js
     path: youtube-check-fixed.js
