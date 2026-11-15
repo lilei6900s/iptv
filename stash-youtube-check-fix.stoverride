@@ -1,0 +1,14 @@
+#!name=YouTube 检测修复
+#!desc=把 YouTube 检测脚本换成新版：旧脚本在 youtube.com/premium 里找 "ad-free"，YouTube 改版后永远找不到，恒显示 Unknown Error；新脚本检测 youtube.com 首页，显示 Available（地区）
+#!author=Muse
+
+# 只替换检测脚本的来源，不碰面板定义、分组和规则，
+# 与 ZacBi 覆写、IPTV 覆写、DingTalk 覆写无冲突，位置无关。
+# YouTube-Check 是 StashNetworks/misc 示例的标准名；多写一个 YouTube 兜底，
+# 机场若用另一个名字也能命中，未命中的那个不会被任何面板引用，无害。
+
+script-providers:
+  YouTube-Check:
+    url: https://raw.githubusercontent.com/lilei6900s/iptv/main/youtube-check-fixed.js
+  YouTube:
+    url: https://raw.githubusercontent.com/lilei6900s/iptv/main/youtube-check-fixed.js
