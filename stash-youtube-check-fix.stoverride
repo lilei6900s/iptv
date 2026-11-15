@@ -10,5 +10,7 @@
 script-providers:
   YouTube-Check:
     url: https://raw.githubusercontent.com/lilei6900s/iptv/main/youtube-check-fixed.js
+    path: youtube-check-fixed.js
   YouTube:
     url: https://raw.githubusercontent.com/lilei6900s/iptv/main/youtube-check-fixed.js
+    path: youtube-check-fixed.js
