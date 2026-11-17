@@ -342,8 +342,8 @@ SOURCE_OVERRIDES = {
     "CCTV2": "http://74.91.26.218:82/live/cctv2hd.m3u8",  # 待测：原 107.150 播广告
     "CCTV3": "http://74.91.26.218:82/live/cctv3hd.m3u8",  # 待测：原 63.141 播广告
     "CCTV4": "https://h5cul1yar48um3t.wcetv.com/hls/cctv4.m3u8",  # 已验：帧确认 CCTV-4 美洲版真实内容
-    "CCTV5": "http://221.226.51.220:50081/newlive/live/hls/5/live.m3u8",  # 2026-11-14 帧验证为真CCTV-5(体育主播+台标)；沙箱测速慢(9KB/s)但为电信直连源，国内实测为准；ivi黑屏、catvod全是广告、gaoma沙箱不可达
-    "CCTV5+": "http://ivi.bupt.edu.cn/hls/cctv5phd.m3u8",  # 待测：北邮教育网源；jdshipin跳转已死163189、bfgd播广告；沙箱无法直连，待用户实测
+    "CCTV5": "http://223.78.65.165:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0",  # 2026-11-18 深度 hunt 帧验证：真CCTV-5直播(CBA京粤大战+台标)，1920x1080/25fps/~9Mbps，整段下载+60秒稳定性复查通过；Guovin新列表同款URL佐证。静态query参数，段内key2由播放列表自带。旧SD源 http://221.226.51.220:50081/newlive/live/hls/5/live.m3u8 保留作回退备选
+    "CCTV5+": "http://223.78.65.165:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0",  # 2026-11-18 深度 hunt 帧验证：真CCTV-5+直播(意甲米兰德比+体育赛事台标)，1920x1080/25fps/~9Mbps，整段下载+60秒稳定性复查通过；Guovin新列表同款URL佐证。替换黑屏的ivi源；备选：bfgd 4200000246(帧验证已恢复真内容)、183.129.255.66:8480/hls/6、219.147.245.238 newlive slot 6(4.4Mbps最省流量)
     "CCTV6": "http://74.91.26.218:82/live/cctv6hd.m3u8",  # 待测：原 63.141 播广告
     "CCTV7": "http://74.91.26.218:82/live/cctv7hd.m3u8",  # 待测：原 107.150 播广告
     "CCTV8": "http://74.91.26.218:82/live/cctv8hd.m3u8",  # 待测：原 63.141 播广告
