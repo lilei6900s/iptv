@@ -1,0 +1,12 @@
+#!name=Mov3 Referer 补全
+#!desc=给 mov3.co 日本台请求补 Referer，让 APTV 能播 Fuji TV、日本电视台、TV Asahi、东京电视台
+#!author=Muse
+# mov3.co 的 HLS 源要求请求带 Referer: https://mov3.co/，不带返回 403。
+# APTV 不发这个头，这条 Rewrite 在 Loon 里补上。只影响 *.mov3.co 的请求，其余配置不动。
+# 需要 MitM 开启（LOON CA 已信任即可）。
+
+[Rewrite]
+^https://.*\.mov3\.co/ header-add Referer https://mov3.co/
+
+[Mitm]
+hostname = *.mov3.co
