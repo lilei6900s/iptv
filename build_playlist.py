@@ -342,8 +342,8 @@ SOURCE_OVERRIDES = {
     "CCTV2": "http://74.91.26.218:82/live/cctv2hd.m3u8",  # 待测：原 107.150 播广告
     "CCTV3": "http://74.91.26.218:82/live/cctv3hd.m3u8",  # 待测：原 63.141 播广告
     "CCTV4": "https://h5cul1yar48um3t.wcetv.com/hls/cctv4.m3u8",  # 已验：帧确认 CCTV-4 美洲版真实内容
-    "CCTV5": "http://223.78.65.165:9901/tsfile/live/0005_1.m3u8?key=txiptv&playlive=1&authid=0",  # 2026-11-18 深度 hunt 帧验证：真CCTV-5直播(CBA京粤大战+台标)，1920x1080/25fps/~9Mbps，整段下载+60秒稳定性复查通过；Guovin新列表同款URL佐证。静态query参数，段内key2由播放列表自带。旧SD源 http://221.226.51.220:50081/newlive/live/hls/5/live.m3u8 保留作回退备选
-    "CCTV5+": "http://223.78.65.165:9901/tsfile/live/0006_1.m3u8?key=txiptv&playlive=1&authid=0",  # 2026-11-18 深度 hunt 帧验证：真CCTV-5+直播(意甲米兰德比+体育赛事台标)，1920x1080/25fps/~9Mbps，整段下载+60秒稳定性复查通过；Guovin新列表同款URL佐证。替换黑屏的ivi源；备选：bfgd 4200000246(帧验证已恢复真内容)、183.129.255.66:8480/hls/6、219.147.245.238 newlive slot 6(4.4Mbps最省流量)
+    "CCTV5": "http://120.40.39.246:352/newlive/live/hls/5/live.m3u8",  # 2026-11-18 深度 hunt 帧验证：真CCTV-5直播(CBA)，1920x1080/25fps/~8.6Mbps，整段下载+60秒稳定性复查通过；newlive 家族（同之前能播的 SD 源家族），电信福建。txiptv 223.78.65.165 对 2026-11-18 晚移除：用户反馈所有网络都卡，沙箱测其吞吐 1.85~8.85Mbps 剧烈波动、播放列表 9 秒才返回；该 host 是全单唯一移动(山东济南)源。勿无证据加回 txiptv。旧SD源 http://221.226.51.220:50081/newlive/live/hls/5/live.m3u8 保留作回退备选
+    "CCTV5+": "http://219.147.245.238:25480/newlive/live/hls/6/live.m3u8",  # 2026-11-18 深度 hunt 帧验证：真CCTV-5+直播(意甲米兰德比)，1920x1080/25fps/~4.4Mbps（已验 HD 里最轻、最省流量），整段下载+60秒稳定性复查通过；newlive 家族，电信哈尔滨。注意 slot 因 host 而异：此 host slot 6=CCTV-5+（已帧验），勿凭 slot 猜台。txiptv 对同 CCTV5 原因 2026-11-18 晚移除，勿无证据加回。备选：bfgd 4200000246、183.129.255.66:8480/hls/6
     "CCTV6": "http://74.91.26.218:82/live/cctv6hd.m3u8",  # 待测：原 63.141 播广告
     "CCTV7": "http://74.91.26.218:82/live/cctv7hd.m3u8",  # 待测：原 107.150 播广告
     "CCTV8": "http://74.91.26.218:82/live/cctv8hd.m3u8",  # 待测：原 63.141 播广告
