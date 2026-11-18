@@ -8,8 +8,10 @@ Run daily by GitHub Actions (.github/workflows/daily-rebuild.yml).
 2026-11-11: 港澳台组内按香港/澳门/台湾排序；日韩频道名尽量转中文。
 """
 
+import json
 import re
 import sys
+import urllib.parse
 import urllib.request
 
 SOURCES = [
@@ -751,6 +753,56 @@ def parse(text):
     return header, entries
 
 
+# 澳门莲花卫视：官网首页内嵌趣看 (quklive) 直播间，入口带 auth_key 签名。
+# 直播间号会换（旧号停推：1780907795235397 已死），签名本身长期有效
+# （auth_key 首字段为 2036 年到期）。每天重建时重新解析当前入口；解析
+# 失败时用上次的 URL 顶上，不让构建失败。签名不打印到日志。
+LOTUSTV_FALLBACK_URL = "https://play-sh-qudao.quklive.com/live/1793853943346050.m3u8?token=c895f7ab6f3ea341861cf4825c764a6c-47975a22899799cd191022ef20f1b334&auth_key=2109213943-baec122a884d0dc319e3c9ab35376f52-0-8d6175cf97efd15869ff5050daa0d867"
+LOTUSTV_UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36")
+
+
+def _fetch_text_lotus(url):
+    req = urllib.request.Request(url, headers={
+        "User-Agent": LOTUSTV_UA, "Referer": "https://www.lotustv.mo/",
+        "Accept": "text/html"})
+    with urllib.request.urlopen(req, timeout=20) as r:
+        if r.status != 200:
+            raise ValueError(f"HTTP {r.status}")
+        return r.read().decode("utf-8", errors="ignore")
+
+
+def resolve_lotustv_url():
+    try:
+        home = _fetch_text_lotus("https://www.lotustv.mo/")
+        tag = re.search(r'<iframe\b[^>]*\bid\s*=\s*["\']onlive["\'][^>]*>',
+                        home, re.I).group(0)
+        src = re.search(r'\bsrc\s*=\s*["\']([^"\']+)["\']',
+                        tag, re.I).group(1).strip()
+        if src.startswith("//"):
+            src = "https:" + src
+        room = re.match(r"https://cloud\.quklive\.com/cloud/a/embed/(\d+)$",
+                        src).group(1)
+        page = _fetch_text_lotus(src)
+        act = json.loads(re.search(
+            r"\bvar\s+activity\s*=\s*(\{.*\})\s*;", page, re.S).group(1))
+        if str(act.get("id")) != room:
+            raise ValueError("room mismatch")
+        url = act["urlGroup"]["hlsUrl"]
+        u = urllib.parse.urlparse(url)
+        if (u.scheme != "https"
+                or not re.fullmatch(r"play-[a-z0-9-]+\.quklive\.com",
+                                    u.hostname or "")
+                or u.path != f"/live/{room}.m3u8"
+                or "auth_key" not in urllib.parse.parse_qs(u.query)):
+            raise ValueError("unexpected entry")
+        print(f"lotustv: resolved room {room}")
+        return url
+    except Exception as e:
+        print(f"lotustv: resolve failed ({e}), using fallback URL")
+        return LOTUSTV_FALLBACK_URL
+
+
 def main():
     all_entries = []  # (source, extinf, display, url)
     header = ["#EXTM3U"]
@@ -762,6 +814,14 @@ def main():
         print(f"{src}: {len(entries)} entries")
         for extinf, display, u, vlcopts in entries:
             all_entries.append((src, extinf, display, u, vlcopts))
+
+    # 澳门莲花卫视（用户 2026-11-19 要求加入澳门栏）：不在任何上游源里，
+    # 在此注入一条。display 含“澳门”→ classify 分到港澳台、hkmo_tier 1（澳门栏）。
+    _lotus_url = resolve_lotustv_url()
+    _lotus_extinf = ('#EXTINF:-1 tvg-id="LotusTV.mo" tvg-name="澳门莲花卫视" '
+                     'tvg-logo="https://www.lotustv.mo/view/assets/image/logo.png" '
+                     'group-title="港澳台",澳门莲花卫视')
+    all_entries.append(("hk", _lotus_extinf, "澳门莲花卫视", _lotus_url, []))
 
     # merged: drop exact (display, url) duplicates, drop junk entries
     merged = []
