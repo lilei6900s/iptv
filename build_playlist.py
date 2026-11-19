@@ -360,6 +360,12 @@ SOURCE_OVERRIDES = {
     "CCTV17": "http://74.91.26.218:82/live/cctv17hd.m3u8",  # 待测：原 264788 播广告
     "CETV1": "http://117.161.133.51:81/gitv_live/G_CETV-1/G_CETV-1.m3u8?p=GITV",  # 待测：原 198.204.228 播广告；沙箱无法直连
     "CETV2": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225756/index.m3u8",  # 待测：中国移动 PLTV 源（xiaolvdouya ff.txt 2026-11-15，CETV1/3/4 同族 ID 印证）；原 catvod 全是广告招租 slate；沙箱无法直连，待用户实测
+    # 2026-11-19 CCTV-4K 高清：原官方 cctvnews 链接签名过期（auth_key 到期 2026-02-19，403），p.ytelc 404。换 107.150.52.50:82/live/cctv4k.m3u8——中继族中唯一真正出分片的源（同族 38.75/107.150.60.122/192.151.150.154/63.141/104.152.209.49 播单能拉、分片全 404）。2026-11-19 帧验：CCTV 4K 超高清角标、真节目，1080p25 约 15Mbps；注意是 1080p 不是真 2160p。主机不在 256 条强制代理里（美 IP，不走 DIRECT 规则，落 FINAL→代理，无需加规则）。
+    "CCTV4K": "http://107.150.52.50:82/live/cctv4k.m3u8",
+    # 2026-11-19 CCTV4K真4K：原 xinketongxun 已死（exit 52）。换央视官方阿里云真 4K 流 liveali-tp4k.cctv.cn/live/4K10M.stream/playlist.m3u8——沙箱 403 地域限制（境外出口），未帧验，待用户国内 IP 实测；若播不了，换与 CCTV-4K 高清相同的 107.150.52.50 1080p 源。
+    "CCTV4K真4K": "https://liveali-tp4k.cctv.cn/live/4K10M.stream/playlist.m3u8",
+    # 2026-11-19 CETV-1：原 GITV 117.161.133.51 已死（2026-11-14 审计 exit 52）。换移动 PLTV 同族源 .../3221225753（CETV-2 已换 .../3221225756 同族），沙箱无法直连，待用户移动网实测；备选未验：txycsbl.centv.cn/zb/0628cetv1.m3u8（CETV 自有 CDN）、charging-rh.ha.chinamobile.com 河南移动 GITV。
+    "CETV1": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225753/index.m3u8",
     "东方卫视": "http://107.150.60.122/live/dfwshd.m3u8",  # 原 38.75 -> 2436KB/s
     "甘肃卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd",  # 原 38.75 -> 1874KB/s
     # 2026-11-19 福建海峡卫视：原 Guovin 源 38.64.72.148 modn 404 已死（2026-11-14 审计即死，用户 2026-11-19 04:00 报不能看）。换官方源：r.jdshipin 短链跳转到 live1-fuyun.fjtv.net/haixiapd/hd/live.m3u8（海博TV 官方流，640x360/25fps，分片实测 200）。注意：2026-11-19 04:0x 帧验为“因版权问题暂时无法观看”slate——官方流在部分节目时段黑屏，待用户白天实测内容；短链每次跳转带 _upt 参数，勿写死最终 URL。备选未验：pi.0472.org/hls/hxws.m3u8（沙箱无法直连）。
