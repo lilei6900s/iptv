@@ -209,11 +209,11 @@ http://r.jdshipin.com/QFhCq
 #EXTINF:-1 tvg-name="澳视澳门" tvg-logo="https://gitee.com/suxuang/logo/raw/master/mylogo/澳视澳门.png" group-title="港澳台",澳视澳门
 http://r.jdshipin.com/n2YZI
 #EXTINF:-1 tvg-name="澳门体育" tvg-logo="https://live.fanmingming.cn/tv/澳门体育.png" group-title="港澳台",澳门体育
-https://live3.tdm.com.mo/ch4/sport_ch4.live/playlist.m3u8
+https://cdn.qd.je/163189/amty
 #EXTINF:-1 tvg-name="澳门综艺" tvg-logo="https://live.fanmingming.cn/tv/澳门综艺.png" group-title="港澳台",澳门综艺
-https://live3.tdm.com.mo/ch6/hd_ch6.live/playlist.m3u8
+https://cdn.qd.je/163189/amzy
 #EXTINF:-1 tvg-id="LotusTV.mo" tvg-name="澳门莲花卫视" tvg-logo="https://www.lotustv.mo/view/assets/image/logo.png" group-title="港澳台",澳门莲花卫视
-https://play-sh-qudao.quklive.com/live/1793853943346050.m3u8?token=ca17b84f2e5f4139b0fecc2879e7f86d-e8a95e2c98941199733fbca1c7c88c53&auth_key=2109213943-baec122a884d0dc319e3c9ab35376f52-0-8d6175cf97efd15869ff5050daa0d867
+https://play-sh-qudao.quklive.com/live/1793853943346050.m3u8?token=2b69c5d101b36c97332e34536afb27db-e059dda3b5e24cab190fbdfb3201b5f6&auth_key=2109213943-baec122a884d0dc319e3c9ab35376f52-0-8d6175cf97efd15869ff5050daa0d867
 #EXTINF:-1 tvg-id="TVBS亚洲" tvg-name="TVBS亚洲" tvg-logo="https://www.xn--rgv465a.top/tvlogo/TVBS亚洲.png" group-title="港澳台",TVBS亚洲
 http://38.64.72.148:80/hls/modn/list/4005/playlist.m3u8
 #EXTINF:-1 tvg-id="东森超视" tvg-name="东森超视" tvg-logo="https://www.xn--rgv465a.top/tvlogo/东森超视.png" group-title="港澳台",东森超视
