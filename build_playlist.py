@@ -301,6 +301,11 @@ EXCLUDE_KEYS = {
     "AXNAsiaTaiwan", "AnimaxAsiaTaiwan", "CinemaxAsiaTaiwan",
     "DiscoveryAsiaTaiwan", "HBOAsiaTaiwan",
     "爱奇艺",  # not a TV channel
+    # 2026-11-20 地方台深查：福建省广播影视集团 2026-04-28 关停 4 个频道
+    # （维基“福建省广播影视集团”条目核实）：乡村振兴•公共、电视剧、经济生活
+    # （福建经视）停播；文体并入旅游频道改为文旅•体育频道。原名已不存在，
+    # 找替补无意义，直接从列表删掉。福建旅游（现文旅•体育）暂留，待找新源。
+    "福建乡村振兴公共", "福建电视剧", "福建文体", "福建经视",
 }
 EXCLUDE_SUBSTRINGS = ("春晚", "维护内容", "维护时间", "公告说明", "免费订阅")
 
@@ -373,6 +378,47 @@ SOURCE_OVERRIDES = {
     # 2026-11-19 澳门体育/澳门综艺：原 cdn6.163189.xyz 中继已死（200 但无 #EXTM3U，2026-11-14 审计即死，用户 2026-11-19 12:04 报不能看）。先换 TDM 官方流（live3.tdm.com.mo）run #28 上线，但用户刷新后仍超时——TDM 直连疑似限澳门 IP。改换同中继的另一入口 cdn.qd.je/163189/{amty,amzy}（与在播的澳视卫星/澳视澳门同族：jdshipin 短链解析后就是 cdn.qd.je/163189/as、asam），2026-11-19 12:25 沙箱实测：主播单→cdn6.cc.cd 变体→分片 200（~3.5MB/10s），1080p25 h264，帧验真内容（体育=澳门大赛车直播，综艺=电视剧+澳门综艺角标）。
     "澳门体育": "https://cdn.qd.je/163189/amty",
     "澳门综艺": "https://cdn.qd.je/163189/amzy",
+    # 2026-11-20 地方台深查换源（371 台全验：真节目 76、死 157、播单活分片死 31、
+    # 广告循环 13、夜间测试卡 94；201 个目标猎手 hunt，帧验找到 21 个替补）：
+    # 浙江 6 个广告台：原 ali-m-l.cztv.com channel003/004/006 在播同步购物广告
+    # （祖信堂天麻，倒计时停 01:14，30 分钟后分片字节相同=冻结循环）；换浙江广电
+    # 官方另一路 ali-xwl.cztv.com 同编号 channel，帧验真节目（经济生活=电视剧《上有老
+    # 下有小》1080p，民生=篮球赛，教科=直播推进；教科深夜自带招商二维码横幅，是该台
+    # 自身编排）。4 个经济生活/经济/经视/生活本就是同一路 channel003 的重复条目。
+    "浙江经济生活": "http://ali-xwl.cztv.com/live/channel031080Plxw.m3u8",
+    "浙江经济": "http://ali-xwl.cztv.com/live/channel031080Plxw.m3u8",
+    "浙江经视": "http://ali-xwl.cztv.com/live/channel031080Plxw.m3u8",
+    "浙江生活": "http://ali-xwl.cztv.com/live/channel031080Plxw.m3u8",
+    "浙江民生": "http://ali-xwl.cztv.com/live/channel061080Plxw.m3u8",
+    "浙江教科": "http://ali-xwl.cztv.com/live/channel041080Plxw.m3u8",
+    # 浙江 6 个县级台：原 freetv.fun 全死（522），换浙江广电官方 cztvcloud
+    # lantian SX* 720p（?zzhed），帧验真节目；嵊泗帧为停机检修测试卡（无台标，
+    # 身份靠路径判定，恢复播出后需复验），其余 5 台均为真节目。
+    "兰溪新闻综合": "http://l.cztvcloud.com/channels/lantian/SXlanxi1/720p.m3u8?zzhed",
+    "嵊州新闻综合": "http://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8?zzhed",
+    "嵊泗综合": "http://l.cztvcloud.com/channels/lantian/SXshengsi1/720p.m3u8?zzhed",
+    "平湖新闻综合": "http://l.cztvcloud.com/channels/lantian/SXpinghu1/720p.m3u8?zzhed",
+    "开化新闻综合": "http://l.cztvcloud.com/channels/lantian/SXkaihua1/720p.m3u8?zzhed",
+    "武义新闻综合": "http://l.cztvcloud.com/channels/lantian/SXwuyi1/720p.m3u8?zzhed",
+    "永嘉新闻综合": "http://l.cztvcloud.com/channels/lantian/SXyongjia1/720p.m3u8?zzhed",
+    # 广东 3 台 + 金鹰卡通：原 38.75 中继播单活、分片 404（两次复测）；换 txiptv
+    # 120.198.84.146:9901/tsfile（与 5/5+ 移除的 223.78.65.165 不同 host），帧验
+    # 真节目（珠江=电视剧，体育=CBA 俱乐部杯广州龙狮直播，新闻=纪录片，卡通=动画）。
+    # 注意是 txiptv 家族，若用户反馈卡，先回 38.75 再找。
+    "广东珠江": "http://120.198.84.146:9901/tsfile/live/1012_1.m3u8",
+    "广东体育": "http://120.198.84.146:9901/tsfile/live/1015_1.m3u8",
+    "广东新闻": "http://120.198.84.146:9901/tsfile/live/1013_1.m3u8",
+    "金鹰卡通": "http://120.198.84.146:9901/tsfile/live/1040_1.m3u8",
+    # Astro欢喜台：原 QTV DRM 源无法解码；换 cdn3.indevs.in，帧验真节目（《金针缘》）。
+    "Astro欢喜": "https://cdn3.indevs.in/stream/live/hxt/",
+    # 辽宁影视剧：原 dassby 生路径（中文未编码）分片 404；换同一 URL 的百分号编码版，
+    # 帧验真节目（《烽火英雄传》1080p+沈阳本地广告条）。
+    "辽宁影视剧": "http://dassby.qqff.top:99/live/%E8%BE%BD%E5%AE%81%E5%BD%B1%E8%A7%86%E5%89%A7/index.m3u8",
+    # 辽宁经济、广东民生：帧验真节目，但沙箱测分片极慢（辽宁经济 ~0.1-0.8Mbps，
+    # 广东民生 ~0.3Mbps），可能卡；原源一个是购物广告循环、一个已死，先换上，
+    # 待用户实测，若卡再撤。
+    "辽宁经济": "http://dassby.qqff.top:99/live/辽宁经济/index.m3u8",
+    "广东民生": "http://183.11.239.36:808/hls/18/index.m3u8",
     # 2026-11-14 泰国台缓冲降码率：源是单一码率、无低清晰度可降，
     # 节点无关（香港/新加坡/日本都缓冲）。thaimomo -3(2.3M)->-2(1.2M，同 576p)，
     # -1(240p) 13:19 已验证可用但用户认为不是码率问题，先撤回，保留 -2；
