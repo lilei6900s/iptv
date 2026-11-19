@@ -364,6 +364,9 @@ SOURCE_OVERRIDES = {
     "甘肃卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd",  # 原 38.75 -> 1874KB/s
     # 2026-11-19 福建海峡卫视：原 Guovin 源 38.64.72.148 modn 404 已死（2026-11-14 审计即死，用户 2026-11-19 04:00 报不能看）。换官方源：r.jdshipin 短链跳转到 live1-fuyun.fjtv.net/haixiapd/hd/live.m3u8（海博TV 官方流，640x360/25fps，分片实测 200）。注意：2026-11-19 04:0x 帧验为“因版权问题暂时无法观看”slate——官方流在部分节目时段黑屏，待用户白天实测内容；短链每次跳转带 _upt 参数，勿写死最终 URL。备选未验：pi.0472.org/hls/hxws.m3u8（沙箱无法直连）。
     "福建海峡卫视": "http://r.jdshipin.com/WtYt3",
+    # 2026-11-19 澳门体育/澳门综艺：原 163189 中继已死（200 但无 #EXTM3U，2026-11-14 审计即死，用户 2026-11-19 12:04 报不能看）。换 TDM 官方流（iptv-org mo.m3u 同款）：体育=ch4 sport，综艺=ch6 entertainment（TDM 娱乐台）。沙箱无法直连 tdm.com.mo（000），未帧验，待用户实测；若综艺打开不是综艺内容再找。
+    "澳门体育": "https://live3.tdm.com.mo/ch4/sport_ch4.live/playlist.m3u8",
+    "澳门综艺": "https://live3.tdm.com.mo/ch6/hd_ch6.live/playlist.m3u8",
     # 2026-11-14 泰国台缓冲降码率：源是单一码率、无低清晰度可降，
     # 节点无关（香港/新加坡/日本都缓冲）。thaimomo -3(2.3M)->-2(1.2M，同 576p)，
     # -1(240p) 13:19 已验证可用但用户认为不是码率问题，先撤回，保留 -2；
