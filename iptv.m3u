@@ -21,7 +21,7 @@ http://74.91.26.218:82/live/cctv8hd.m3u8
 #EXTINF:-1 tvg-id="CCTV-9" tvg-name="CCTV-9" tvg-logo="https://www.xn--rgv465a.top/tvlogo/CCTV-9.png" group-title="央视",CCTV-9
 https://xykt-fix.github.io/Y77.m3u8
 #EXTINF:-1 tvg-id="CCTV-10" tvg-name="CCTV-10" tvg-logo="https://www.xn--rgv465a.top/tvlogo/CCTV-10.png" group-title="央视",CCTV-10
-https://cdn4.skygo.mn/live/disk1/CCTV-10/HLSv3-FTA/CCTV-10.m3u8
+http://221.7.175.154:8445/tsfile/live/1008_1.m3u8?key=txiptv&playlive=1&authid=0
 #EXTINF:-1 tvg-id="CCTV-11" tvg-name="CCTV-11" tvg-logo="https://www.xn--rgv465a.top/tvlogo/CCTV-11.png" group-title="央视",CCTV-11
 http://74.91.26.218:82/live/cctv11hd.m3u8
 #EXTINF:-1 tvg-id="CCTV-12" tvg-name="CCTV-12" tvg-logo="https://www.xn--rgv465a.top/tvlogo/CCTV-12.png" group-title="央视",CCTV-12
@@ -213,7 +213,7 @@ https://cdn.qd.je/163189/amty
 #EXTINF:-1 tvg-name="澳门综艺" tvg-logo="https://live.fanmingming.cn/tv/澳门综艺.png" group-title="港澳台",澳门综艺
 https://cdn.qd.je/163189/amzy
 #EXTINF:-1 tvg-id="LotusTV.mo" tvg-name="澳门莲花卫视" tvg-logo="https://www.lotustv.mo/view/assets/image/logo.png" group-title="港澳台",澳门莲花卫视
-https://play-sh-qudao.quklive.com/live/1793853943346050.m3u8?token=c46780e0e7d47352dc87a93430e6e627-d13d4a048f4de160513f5564f12f2fa7&auth_key=2109213943-baec122a884d0dc319e3c9ab35376f52-0-8d6175cf97efd15869ff5050daa0d867
+https://play-sh-qudao.quklive.com/live/1793853943346050.m3u8?token=c140141bed7c315c1a4fd5215905fe65-a1c1a078ddae91ad76b6f6e033d18e3f&auth_key=2109213943-baec122a884d0dc319e3c9ab35376f52-0-8d6175cf97efd15869ff5050daa0d867
 #EXTINF:-1 tvg-id="TVBS亚洲" tvg-name="TVBS亚洲" tvg-logo="https://www.xn--rgv465a.top/tvlogo/TVBS亚洲.png" group-title="港澳台",TVBS亚洲
 http://38.64.72.148:80/hls/modn/list/4005/playlist.m3u8
 #EXTINF:-1 tvg-id="东森超视" tvg-name="东森超视" tvg-logo="https://www.xn--rgv465a.top/tvlogo/东森超视.png" group-title="港澳台",东森超视
