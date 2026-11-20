@@ -375,9 +375,9 @@ SOURCE_OVERRIDES = {
     "CCTV16": "http://198.204.240.250:82/live/cctv16hd.m3u8",  # 待测：原 38.75 播广告
     "CCTV17": "http://74.91.26.218:82/live/cctv17hd.m3u8",  # 待测：原 264788 播广告
     "CETV1": "http://117.161.133.51:81/gitv_live/G_CETV-1/G_CETV-1.m3u8?p=GITV",  # 待测：原 198.204.228 播广告；沙箱无法直连
-    "CETV2": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225756/index.m3u8",  # 待测：中国移动 PLTV 源（xiaolvdouya ff.txt 2026-11-15，CETV1/3/4 同族 ID 印证）；原 catvod 全是广告招租 slate；沙箱无法直连，待用户实测
-    # 2026-11-20 海南卫视：原 bfgd 4200000473 播单能拉、分片全超时（整个 bfgd 分片 host 挂了，用户报看不了）。换陕西移动 PLTV 3221225769（xyq254245 live.txt；同文件 CETV1=753/CETV2=756 与已上线的一致，同族邻台四川 768/东南 766/河南 767 印证 ID 映射）；沙箱无法直连，待用户在移动网实测。官方 hnntv 流帧验是真节目但 token 只活 2 小时、没法当静态源用；裸官方 URL 是 token 门（403），不换。2026-11-20 晚：陕西 PLTV 直连移动网仍 0 字节，源本身死/锁，换黑龙江 PLTV 3221226465（沙箱无法验证，待用户实测；若还超时则 PLTV 家族对该机无解）。
-    "海南卫视": "http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226465/index.m3u8",
+    "CETV2": "http://223.110.241.204:6610/gitv/live1/G_CETV-2/G_CETV-2/",  # 2026-11-20 换 GITV 全国源（陕西 PLTV 直连仍 0 字节；沙箱无法直连，待用户实测）
+    # 2026-11-20 海南卫视：原 bfgd 4200000473 播单能拉、分片全超时（整个 bfgd 分片 host 挂了，用户报看不了）。换陕西移动 PLTV 3221225769（xyq254245 live.txt；同文件 CETV1=753/CETV2=756 与已上线的一致，同族邻台四川 768/东南 766/河南 767 印证 ID 映射）；沙箱无法直连，待用户在移动网实测。官方 hnntv 流帧验是真节目但 token 只活 2 小时、没法当静态源用；裸官方 URL 是 token 门（403），不换。2026-11-20 晚：陕西 PLTV 直连移动网仍 0 字节，源本身死/锁，换黑龙江 PLTV 3221226465（沙箱无法验证，待用户实测；若还超时则 PLTV 家族对该机无解）。2026-11-20 晚：黑龙江 PLTV 直连仍 0 字节，PLTV 家族对该机无解，改 GITV 全国源（Hl190909 播单，LYWS 码与深查的 GITV 302 路径一致；CETV-1/2 同换 GITV）。
+    "海南卫视": "http://223.110.241.204:6610/gitv/live1/LYWS/LYWS/",
     # 2026-11-20 run #38: 63.141 中继同一共享广告+全超时，25 台换源（8 台帧验替源 + 17 台换同家中继 107.150.60.122，用户手机上东方/河南走它 133/261ms；海南无替源不动）
     "CCTV1": "http://74.91.26.218:82/live/cctv1hd.m3u8",  # 帧验《老农民》
     "浙江卫视": "https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8",  # 帧验《庆余年2》
@@ -399,7 +399,7 @@ SOURCE_OVERRIDES = {
     # 2026-11-19 CCTV4K真4K：原 xinketongxun 已死（exit 52）。换央视官方阿里云真 4K 流 liveali-tp4k.cctv.cn/live/4K10M.stream/playlist.m3u8——沙箱 403 地域限制（境外出口），未帧验，待用户国内 IP 实测；若播不了，换与 CCTV-4K 高清相同的 107.150.52.50 1080p 源。
     "CCTV4K真4K": "https://liveali-tp4k.cctv.cn/live/4K10M.stream/playlist.m3u8",
     # 2026-11-19 CETV-1：原 GITV 117.161.133.51 已死（2026-11-14 审计 exit 52）。换移动 PLTV 同族源 .../3221225753（CETV-2 已换 .../3221225756 同族），沙箱无法直连，待用户移动网实测；备选未验：txycsbl.centv.cn/zb/0628cetv1.m3u8（CETV 自有 CDN）、charging-rh.ha.chinamobile.com 河南移动 GITV。
-    "CETV1": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225753/index.m3u8",
+    "CETV1": "http://223.110.241.204:6610/gitv/live1/G_CETV-1/G_CETV-1/",  # 2026-11-20 换 GITV 全国源（陕西 PLTV 直连仍 0 字节；沙箱无法直连，待用户实测）
     "东方卫视": "http://107.150.60.122/live/dfwshd.m3u8",  # 原 38.75 -> 2436KB/s
     "甘肃卫视": "http://107.150.60.122/live/gswshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
     # 2026-11-19 福建海峡卫视：原 Guovin 源 38.64.72.148 modn 404 已死（2026-11-14 审计即死，用户 2026-11-19 04:00 报不能看）。换官方源：r.jdshipin 短链跳转到 live1-fuyun.fjtv.net/haixiapd/hd/live.m3u8（海博TV 官方流，640x360/25fps，分片实测 200）。注意：2026-11-19 04:0x 帧验为“因版权问题暂时无法观看”slate——官方流在部分节目时段黑屏，待用户白天实测内容；短链每次跳转带 _upt 参数，勿写死最终 URL。备选未验：pi.0472.org/hls/hxws.m3u8（沙箱无法直连）。
