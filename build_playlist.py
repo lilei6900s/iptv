@@ -376,6 +376,8 @@ SOURCE_OVERRIDES = {
     "CCTV17": "http://74.91.26.218:82/live/cctv17hd.m3u8",  # 待测：原 264788 播广告
     "CETV1": "http://117.161.133.51:81/gitv_live/G_CETV-1/G_CETV-1.m3u8?p=GITV",  # 待测：原 198.204.228 播广告；沙箱无法直连
     "CETV2": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225756/index.m3u8",  # 待测：中国移动 PLTV 源（xiaolvdouya ff.txt 2026-11-15，CETV1/3/4 同族 ID 印证）；原 catvod 全是广告招租 slate；沙箱无法直连，待用户实测
+    # 2026-11-20 海南卫视：原 bfgd 4200000473 播单能拉、分片全超时（整个 bfgd 分片 host 挂了，用户报看不了）。换陕西移动 PLTV 3221225769（xyq254245 live.txt；同文件 CETV1=753/CETV2=756 与已上线的一致，同族邻台四川 768/东南 766/河南 767 印证 ID 映射）；沙箱无法直连，待用户在移动网实测。官方 hnntv 流帧验是真节目但 token 只活 2 小时、没法当静态源用；裸官方 URL 是 token 门（403），不换。
+    "海南卫视": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225769/index.m3u8",
     # 2026-11-19 CCTV-4K 高清：原官方 cctvnews 链接签名过期（auth_key 到期 2026-02-19，403），p.ytelc 404。换 107.150.52.50:82/live/cctv4k.m3u8——中继族中唯一真正出分片的源（同族 38.75/107.150.60.122/192.151.150.154/63.141/104.152.209.49 播单能拉、分片全 404）。2026-11-19 帧验：CCTV 4K 超高清角标、真节目，1080p25 约 15Mbps；注意是 1080p 不是真 2160p。主机不在 256 条强制代理里（美 IP，不走 DIRECT 规则，落 FINAL→代理，无需加规则）。
     "CCTV4K": "http://107.150.52.50:82/live/cctv4k.m3u8",
     # 2026-11-19 CCTV4K真4K：原 xinketongxun 已死（exit 52）。换央视官方阿里云真 4K 流 liveali-tp4k.cctv.cn/live/4K10M.stream/playlist.m3u8——沙箱 403 地域限制（境外出口），未帧验，待用户国内 IP 实测；若播不了，换与 CCTV-4K 高清相同的 107.150.52.50 1080p 源。
