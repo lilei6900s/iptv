@@ -376,8 +376,8 @@ SOURCE_OVERRIDES = {
     "CCTV17": "http://74.91.26.218:82/live/cctv17hd.m3u8",  # 待测：原 264788 播广告
     "CETV1": "http://117.161.133.51:81/gitv_live/G_CETV-1/G_CETV-1.m3u8?p=GITV",  # 待测：原 198.204.228 播广告；沙箱无法直连
     "CETV2": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225756/index.m3u8",  # 待测：中国移动 PLTV 源（xiaolvdouya ff.txt 2026-11-15，CETV1/3/4 同族 ID 印证）；原 catvod 全是广告招租 slate；沙箱无法直连，待用户实测
-    # 2026-11-20 海南卫视：原 bfgd 4200000473 播单能拉、分片全超时（整个 bfgd 分片 host 挂了，用户报看不了）。换陕西移动 PLTV 3221225769（xyq254245 live.txt；同文件 CETV1=753/CETV2=756 与已上线的一致，同族邻台四川 768/东南 766/河南 767 印证 ID 映射）；沙箱无法直连，待用户在移动网实测。官方 hnntv 流帧验是真节目但 token 只活 2 小时、没法当静态源用；裸官方 URL 是 token 门（403），不换。
-    "海南卫视": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225769/index.m3u8",
+    # 2026-11-20 海南卫视：原 bfgd 4200000473 播单能拉、分片全超时（整个 bfgd 分片 host 挂了，用户报看不了）。换陕西移动 PLTV 3221225769（xyq254245 live.txt；同文件 CETV1=753/CETV2=756 与已上线的一致，同族邻台四川 768/东南 766/河南 767 印证 ID 映射）；沙箱无法直连，待用户在移动网实测。官方 hnntv 流帧验是真节目但 token 只活 2 小时、没法当静态源用；裸官方 URL 是 token 门（403），不换。2026-11-20 晚：陕西 PLTV 直连移动网仍 0 字节，源本身死/锁，换黑龙江 PLTV 3221226465（沙箱无法验证，待用户实测；若还超时则 PLTV 家族对该机无解）。
+    "海南卫视": "http://ottrrs.hl.chinamobile.com/PLTV/88888888/224/3221226465/index.m3u8",
     # 2026-11-20 run #38: 63.141 中继同一共享广告+全超时，25 台换源（8 台帧验替源 + 17 台换同家中继 107.150.60.122，用户手机上东方/河南走它 133/261ms；海南无替源不动）
     "CCTV1": "http://74.91.26.218:82/live/cctv1hd.m3u8",  # 帧验《老农民》
     "浙江卫视": "https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8",  # 帧验《庆余年2》
