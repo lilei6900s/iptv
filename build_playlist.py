@@ -333,17 +333,17 @@ def excluded(display):
 # URLs (gslb redirectors). Applied in the dedup step, so every daily rebuild
 # keeps the live source and the merged file still holds all backups.
 SOURCE_OVERRIDES = {
-    "湖南卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hnwshd",
-    "广东卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gdwshd",
-    "四川卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=scwshd",
-    "江西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jxwshd",
-    "贵州卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gzwshd",
+    "湖南卫视": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",  # 2026-11-20 帧验芒果 4K《鸳鸯佩》；带签名的芒果 URL，若失效改回 107.150 中继
+    "广东卫视": "https://h5cul1yar48um3t.wcetv.com/hls/gdsatellite.m3u8",  # 2026-11-20 帧验《战火青春》ep31
+    "四川卫视": "http://107.150.60.122/live/scwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "江西卫视": "http://107.150.60.122/live/jxwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "贵州卫视": "http://107.150.60.122/live/gzwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
     "宁夏卫视": "http://107.150.60.122/live/nxws.m3u8",
-    "新疆卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=xjws",
-    "西藏卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=xzws",
-    "内蒙古卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=nmgws",
-    "陕西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=snwshd",
-    "山西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sxwshd",
+    "新疆卫视": "http://107.150.60.122/live/xjws.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "西藏卫视": "https://live.vtibet.cn/live/ZYWS20261016.stream.m3u8",  # 2026-11-20 帧验官方藏语节目
+    "内蒙古卫视": "http://107.150.60.122/live/nmgws.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "陕西卫视": "http://107.150.60.122/live/snwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "山西卫视": "http://107.150.60.122/live/sxwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
     # 美亚电影：bestK 的 php 中继已死，iptv-org 的源是直播
     "美亚电影": "http://103.172.187.30:12000/stream/mytv/null-2/master.m3u8",
     # 原住民电视：tw 源里排前面的 akamaized 源已死，用同文件里直播的那个
@@ -378,6 +378,21 @@ SOURCE_OVERRIDES = {
     "CETV2": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225756/index.m3u8",  # 待测：中国移动 PLTV 源（xiaolvdouya ff.txt 2026-11-15，CETV1/3/4 同族 ID 印证）；原 catvod 全是广告招租 slate；沙箱无法直连，待用户实测
     # 2026-11-20 海南卫视：原 bfgd 4200000473 播单能拉、分片全超时（整个 bfgd 分片 host 挂了，用户报看不了）。换陕西移动 PLTV 3221225769（xyq254245 live.txt；同文件 CETV1=753/CETV2=756 与已上线的一致，同族邻台四川 768/东南 766/河南 767 印证 ID 映射）；沙箱无法直连，待用户在移动网实测。官方 hnntv 流帧验是真节目但 token 只活 2 小时、没法当静态源用；裸官方 URL 是 token 门（403），不换。
     "海南卫视": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225769/index.m3u8",
+    # 2026-11-20 run #38: 63.141 中继同一共享广告+全超时，25 台换源（8 台帧验替源 + 17 台换同家中继 107.150.60.122，用户手机上东方/河南走它 133/261ms；海南无替源不动）
+    "CCTV1": "http://74.91.26.218:82/live/cctv1hd.m3u8",  # 帧验《老农民》
+    "浙江卫视": "https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8",  # 帧验《庆余年2》
+    "河北卫视": "https://restream.pdtvhd.com/memfs/1db8c005-9365-4b32-94a4-3736987b5646.m3u8",  # 帧验《大决战》；官方 live101 是美丽河北慢直播风景画面，不用
+    "吉林卫视": "http://221.7.175.154:8445/tsfile/live/1014_1.m3u8?key=txiptv&playlive=1&authid=0",  # 帧验《薛仁贵传奇》ep41
+    "云南卫视": "https://h5cul1yar48um3t.wcetv.com/hls/yunnantv.m3u8",  # 帧验《独立纵队》
+    "北京卫视": "http://107.150.60.122/live/bjwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "重庆卫视": "http://107.150.60.122/live/cqwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "东南卫视": "http://107.150.60.122/live/dnwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "广西卫视": "http://107.150.60.122/live/gxwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "江苏卫视": "http://107.150.60.122/live/jswshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "辽宁卫视": "http://107.150.60.122/live/lnwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "山东卫视": "http://107.150.60.122/live/sdwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "天津卫视": "http://107.150.60.122/live/tjwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "天津体育": "http://107.150.60.122/live/tjtv5.m3u8",  # 2026-11-20 63.141 换 107.150 中继
     # 2026-11-19 CCTV-4K 高清：原官方 cctvnews 链接签名过期（auth_key 到期 2026-02-19，403），p.ytelc 404。换 107.150.52.50:82/live/cctv4k.m3u8——中继族中唯一真正出分片的源（同族 38.75/107.150.60.122/192.151.150.154/63.141/104.152.209.49 播单能拉、分片全 404）。2026-11-19 帧验：CCTV 4K 超高清角标、真节目，1080p25 约 15Mbps；注意是 1080p 不是真 2160p。主机不在 256 条强制代理里（美 IP，不走 DIRECT 规则，落 FINAL→代理，无需加规则）。
     "CCTV4K": "http://107.150.52.50:82/live/cctv4k.m3u8",
     # 2026-11-19 CCTV4K真4K：原 xinketongxun 已死（exit 52）。换央视官方阿里云真 4K 流 liveali-tp4k.cctv.cn/live/4K10M.stream/playlist.m3u8——沙箱 403 地域限制（境外出口），未帧验，待用户国内 IP 实测；若播不了，换与 CCTV-4K 高清相同的 107.150.52.50 1080p 源。
@@ -385,7 +400,7 @@ SOURCE_OVERRIDES = {
     # 2026-11-19 CETV-1：原 GITV 117.161.133.51 已死（2026-11-14 审计 exit 52）。换移动 PLTV 同族源 .../3221225753（CETV-2 已换 .../3221225756 同族），沙箱无法直连，待用户移动网实测；备选未验：txycsbl.centv.cn/zb/0628cetv1.m3u8（CETV 自有 CDN）、charging-rh.ha.chinamobile.com 河南移动 GITV。
     "CETV1": "http://dbiptv.sn.chinamobile.com/PLTV/88888890/224/3221225753/index.m3u8",
     "东方卫视": "http://107.150.60.122/live/dfwshd.m3u8",  # 原 38.75 -> 2436KB/s
-    "甘肃卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd",  # 原 38.75 -> 1874KB/s
+    "甘肃卫视": "http://107.150.60.122/live/gswshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
     # 2026-11-19 福建海峡卫视：原 Guovin 源 38.64.72.148 modn 404 已死（2026-11-14 审计即死，用户 2026-11-19 04:00 报不能看）。换官方源：r.jdshipin 短链跳转到 live1-fuyun.fjtv.net/haixiapd/hd/live.m3u8（海博TV 官方流，640x360/25fps，分片实测 200）。注意：2026-11-19 04:0x 帧验为“因版权问题暂时无法观看”slate——官方流在部分节目时段黑屏，待用户白天实测内容；短链每次跳转带 _upt 参数，勿写死最终 URL。备选未验：pi.0472.org/hls/hxws.m3u8（沙箱无法直连）。
     "福建海峡卫视": "http://r.jdshipin.com/WtYt3",
     # 2026-11-19 澳门体育/澳门综艺：原 cdn6.163189.xyz 中继已死（200 但无 #EXTM3U，2026-11-14 审计即死，用户 2026-11-19 12:04 报不能看）。先换 TDM 官方流（live3.tdm.com.mo）run #28 上线，但用户刷新后仍超时——TDM 直连疑似限澳门 IP。改换同中继的另一入口 cdn.qd.je/163189/{amty,amzy}（与在播的澳视卫星/澳视澳门同族：jdshipin 短链解析后就是 cdn.qd.je/163189/as、asam），2026-11-19 12:25 沙箱实测：主播单→cdn6.cc.cd 变体→分片 200（~3.5MB/10s），1080p25 h264，帧验真内容（体育=澳门大赛车直播，综艺=电视剧+澳门综艺角标）。
