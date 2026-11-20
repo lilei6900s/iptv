@@ -987,6 +987,18 @@ def main():
         _rthk_set = set(_rthk_idx)
         deduped = [e for j, e in enumerate(deduped) if j not in _rthk_set]
         deduped[_first:_first] = _rthk_block
+
+    # CETV-1/2/3 按顺序放（2026-11-20 用户要求）：CETV-2 来自另一上游，排在 CETV-3
+    # 后面；把央视组内的 CETV-1~3 按台号排成连续一块，放回第一个 CETV 原来的位置。
+    _cetv_idx = [i for i, e in enumerate(deduped)
+                 if e[5] == "央视" and re.fullmatch(r"CETV[1-3]", norm_key(e[2]))]
+    if len(_cetv_idx) > 1:
+        _cetv_block = sorted((deduped[i] for i in _cetv_idx),
+                             key=lambda e: int(norm_key(e[2])[4:]))
+        _first = _cetv_idx[0]
+        _cetv_set = set(_cetv_idx)
+        deduped = [e for j, e in enumerate(deduped) if j not in _cetv_set]
+        deduped[_first:_first] = _cetv_block
     print(f"deduped: {len(deduped)}")
     for g in GROUP_ORDER:
         print(f"  group {g}: {sum(1 for e in deduped if e[5] == g)}")
@@ -1003,6 +1015,13 @@ def main():
         assert [int(norm_key(deduped[i][2])[4:]) for i in _rthk_pos] == sorted(
             int(norm_key(deduped[i][2])[4:]) for i in _rthk_pos), "RTHK out of order!"
         print(f"  RTHK cluster: {[deduped[i][2] for i in _rthk_pos]}")
+    _cetv_pos = [i for i, e in enumerate(deduped)
+                 if e[5] == "央视" and re.fullmatch(r"CETV[1-3]", norm_key(e[2]))]
+    if _cetv_pos:
+        assert _cetv_pos == list(range(_cetv_pos[0], _cetv_pos[0] + len(_cetv_pos))), "CETV not clustered!"
+        assert [int(norm_key(deduped[i][2])[4:]) for i in _cetv_pos] == sorted(
+            int(norm_key(deduped[i][2])[4:]) for i in _cetv_pos), "CETV out of order!"
+        print(f"  CETV cluster: {[deduped[i][2] for i in _cetv_pos]}")
     keys = [norm_key(d) for _, _, d, _, _, _ in deduped]
     assert len(keys) == len(set(keys)), "normalized name repeats!"
     disps = [d for _, _, d, _, _, _ in deduped]
