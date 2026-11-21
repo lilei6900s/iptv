@@ -19,3 +19,5 @@ http://162.19.247.76:22222/live/taishi/index.m3u8
 http://111.59.139.85:11888/tsfile/live/1222_1.m3u8?key=txiptv
 #EXTINF:-1 tvg-name="中天综合（测试）" group-title="台湾测试",中天综合（测试）
 http://23.237.10.66:16372
+#EXTINF:-1 tvg-name="Suria（测试）" group-title="台湾测试",Suria（测试）
+https://d11h6a6nhl9kj9.cloudfront.net/hls/clr4ctv_suria/master.m3u8
