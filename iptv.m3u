@@ -211,7 +211,7 @@ https://cdn.qd.je/163189/amty
 #EXTINF:-1 tvg-name="澳门综艺" tvg-logo="https://live.fanmingming.cn/tv/澳门综艺.png" group-title="港澳台",澳门综艺
 https://cdn.qd.je/163189/amzy
 #EXTINF:-1 tvg-id="LotusTV.mo" tvg-name="澳门莲花卫视" tvg-logo="https://www.lotustv.mo/view/assets/image/logo.png" group-title="港澳台",澳门莲花卫视
-https://play-sh-qudao.quklive.com/live/1793853943346050.m3u8?token=bafdb148260c96c500f28c53a2c21f32-1935db16643c37734afe445112c92e69&auth_key=2109213943-baec122a884d0dc319e3c9ab35376f52-0-8d6175cf97efd15869ff5050daa0d867
+https://play-sh-qudao.quklive.com/live/1793853943346050.m3u8?token=2cdf56aad3555b872fd27f51b2f1d42e-8ff20065ba5e92504bfb74d172ce8edf&auth_key=2109213943-baec122a884d0dc319e3c9ab35376f52-0-8d6175cf97efd15869ff5050daa0d867
 #EXTINF:-1 tvg-id="TVBS亚洲" tvg-name="TVBS亚洲" tvg-logo="https://www.xn--rgv465a.top/tvlogo/TVBS亚洲.png" group-title="港澳台",TVBS亚洲
 http://38.64.72.148:80/hls/modn/list/4005/playlist.m3u8
 #EXTINF:-1 tvg-id="东森超视" tvg-name="东森超视" tvg-logo="https://www.xn--rgv465a.top/tvlogo/东森超视.png" group-title="港澳台",东森超视
@@ -223,7 +223,7 @@ http://31.43.191.125:8080/vip6821768502490/6c17bae55394/34904
 #EXTINF:-1 tvg-name="人间卫视" tvg-logo="https://gitee.com/suxuang/TVlogo/raw/main/img/BLTV.png" group-title="港澳台",人间卫视
 http://61.216.67.119:1935/bltvhd/bltv1/chunklist_w1266569526.m3u
 #EXTINF:-1 tvg-name="TVBS新闻台" tvg-logo="https://gitee.com/suxuang/TVlogo/raw/main/img/TVBS1.png" group-title="港澳台",TVBS新闻台
-http://61.221.215.25:8800/hls/9/index.m3u8
+http://38.64.72.148:80/hls/modn/list/4027/playlist.m3u8
 #EXTINF:-1 tvg-name="三立台湾" tvg-logo="https://gh-proxy.com/https://raw.githubusercontent.com/fanmingming/live/main/tv/三立台湾.png" group-title="港澳台",三立台湾
 https://stream1.freetv.fun/san-li-tai-wan-1.ctv
 #EXTINF:-1 tvg-name="三立戏剧" group-title="港澳台",三立戏剧
@@ -259,7 +259,7 @@ http://seb.sason.top/sc/hsxw_fhd.m3u8
 #EXTINF:-1 tvg-id="DaAi1.tw@SD" tvg-logo="https://i.imgur.com/KdJi9af.png" group-title="港澳台",大爱一台
 https://pulltv1.wanfudaluye.com/live/tv1.m3u8
 #EXTINF:-1 tvg-id="DaAi2.tw@SD" tvg-logo="https://i.imgur.com/KdJi9af.png" group-title="港澳台",大爱二台
-http://nmk.ioapk.com:5050/4gtv-live106/index.m3u8
+https://pulltv2.wanfudaluye.com/live/tv2.m3u8
 #EXTINF:-1 tvg-id="EBCFinancialNews.tw@SD" tvg-logo="https://i.imgur.com/uFDkOhV.png" group-title="港澳台",EBC Financial News (1080p) [Not 24/7]
 http://seb.sason.top/sc/dscjxw_fhd.m3u8
 #EXTINF:-1 tvg-id="EBCNews.tw@SD" tvg-logo="https://i.imgur.com/QFZs80p.png" group-title="港澳台",东森新闻
