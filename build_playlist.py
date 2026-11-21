@@ -25,6 +25,7 @@ SOURCES = [
     ("la", "https://iptv-org.github.io/iptv/countries/la.m3u"),
     ("ph", "https://iptv-org.github.io/iptv/countries/ph.m3u"),
     ("th", "https://iptv-org.github.io/iptv/countries/th.m3u"),
+    ("sg", "https://iptv-org.github.io/iptv/countries/sg.m3u"),
 ]
 
 REPLACEMENTS = [
@@ -286,6 +287,30 @@ def rename_sea(k, disp, source):
     if m:
         return SEA_DISPLAY_NAMES[k] + m.group(2)
     return SEA_DISPLAY_NAMES[k]
+
+
+# 新加坡台中文名（2026-11-21 审计，key 为上游原名的 norm_key）。
+SG_DISPLAY_NAMES = {
+    "CartoonitoAsia": "卡通尼托亚洲",
+    "Channel8Singapore": "新加坡8频道",
+    "ChannelU": "新加坡U频道",
+    "CNASingapore": "CNA亚洲新闻台",
+    "CNAOriginals": "CNA原创纪录片",
+    "Suria": "苏丽娅频道",
+}
+
+
+def rename_sg(k, disp, source):
+    """Rename a Singapore display name to Chinese when a mapping exists.
+    Only for sg sources; keeps the resolution / [flag] suffix."""
+    if source != "sg" or k not in SG_DISPLAY_NAMES:
+        return disp
+    m = _SUFFIX_RE.match(disp)
+    if m:
+        return SG_DISPLAY_NAMES[k] + m.group(2)
+    return SG_DISPLAY_NAMES[k]
+
+
 
 
 # Channels the user asked to leave out (2026-11-11): CCTV pay channels and
@@ -679,7 +704,16 @@ LIVE_TH_URLS = {
 # then 地方台. Anything that fits none of those (international news,
 # Malaysia/Singapore, movie/sports/shopping/documentary specialty channels)
 # goes to a trailing 其他 group.
-GROUP_ORDER = ["央视", "卫视", "港澳台", "泰国", "越南", "老挝", "菲律宾", "日韩", "地方台", "其他"]
+# 新加坡：2026-11-21 审计（sg-audit-2026-11-21.json）帧验通过的 5 条真直播；其余 4 条未入选：5频道中继冻结、TechStorm 已死、meWATCH 只有 DASH、Suria 沙箱无法验证待用户新加坡节点实测。
+LIVE_SG_URLS = {
+    'http://cdn4.skygo.mn/live/disk1/Boomerang/HLSv3-FTA/Boomerang.m3u8',
+    'https://cdn.qd.je/163189/ch8',
+    'https://cdn.qd.je/163189/chu',
+    'https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index.m3u8',
+    'https://amg01082-cna-amg01082c1-rlaxx-us-11304.playouts.now.amagi.tv/playlist.m3u8',
+}
+
+GROUP_ORDER = ["央视", "卫视", "港澳台", "新加坡", "泰国", "越南", "老挝", "菲律宾", "日韩", "地方台", "其他"]
 
 # 港澳台组内排序（2026-11-11 用户要求）：香港在上，澳门其次，台湾最后，
 # 归属不明的（CNA 等海外/综合台）排在末尾、保持原有相对顺序。
@@ -759,6 +793,8 @@ def classify(display, upstream_group, source):
         return "老挝"
     if source == "ph":
         return "菲律宾"
+    if source == "sg":
+        return "新加坡"
     if d.startswith("CCTV") or d.startswith("CGTN") or d.startswith("CETV"):
         return "央视"
     # Taiwan's GOOD TV (not Korea's Good TV, which has the same base name)
@@ -940,6 +976,9 @@ def main():
         if src == "th" and url not in LIVE_TH_URLS:
             n_excluded += 1
             continue
+        if src == "sg" and url not in LIVE_SG_URLS:
+            n_excluded += 1
+            continue
         key = (display, url)
         if key in seen_pair:
             continue
@@ -960,6 +999,7 @@ def main():
         disp = DISPLAY_NAMES.get(k, disp)
         disp = rename_jp_kr(k, disp)
         disp = rename_sea(k, disp, src)
+        disp = rename_sg(k, disp, src)
         fk = norm_key(disp)
         if fk in seen_final:
             print(f"  skip rename-collision: {display!r} -> {disp!r} (key {fk})")
@@ -1034,7 +1074,7 @@ def main():
     # overrides are keyed by the ORIGINAL norm_key, but renamed channels are
     # stored under their Chinese display name (suffix kept), so undo renames
     # via the reverse display-name maps before comparing
-    _rev = {v: k for k, v in {**DISPLAY_NAMES, **JP_KR_DISPLAY_NAMES, **SEA_DISPLAY_NAMES}.items()}
+    _rev = {v: k for k, v in {**DISPLAY_NAMES, **JP_KR_DISPLAY_NAMES, **SEA_DISPLAY_NAMES, **SG_DISPLAY_NAMES}.items()}
     for name, want_url in SOURCE_OVERRIDES.items():
         def _orig_key(d):
             m = _SUFFIX_RE.match(d)
