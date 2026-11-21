@@ -1,0 +1,21 @@
+#EXTM3U
+#EXTINF:-1 tvg-name="三立台湾（测试）" group-title="台湾测试",三立台湾（测试）
+http://pili-live-hdl.qhmywl.com:80/dsdtv/e71635b53bb874a085b2a469802bbc81.m3u8
+#EXTINF:-1 tvg-name="八大戏剧台（测试）" group-title="台湾测试",八大戏剧台（测试）
+http://pili-live-hdl.qhmywl.com:80/dsdtv/6d7d7a9c22ba9aa4e411e3f7567763d8.m3u8
+#EXTINF:-1 tvg-name="靖天映画（测试）" group-title="台湾测试",靖天映画（测试）
+http://pili-live-hdl.qhmywl.com:80/dsdtv/4364abb0a9f358049a535f4692cd49b5.m3u8
+#EXTINF:-1 tvg-name="靖天戏剧（测试）" group-title="台湾测试",靖天戏剧（测试）
+http://pili-live-hdl.qhmywl.com:80/dsdtv/4c3b3fa6235fce99e794a16e096c2e1b.m3u8
+#EXTINF:-1 tvg-name="东森洋片（测试）" group-title="台湾测试",东森洋片（测试）
+http://pili-live-hdl.qhmywl.com:80/dsdtv/24b15906d2250c062c0f0b5339e166b2.m3u8
+#EXTINF:-1 tvg-name="MOMO亲子台（测试）" group-title="台湾测试",MOMO亲子台（测试）
+http://pili-live-hdl.qhmywl.com:80/dsdtv/0c795e6e7f8e067dd4110a57375a71b9.m3u8
+#EXTINF:-1 tvg-name="三立戏剧（测试）" group-title="台湾测试",三立戏剧（测试）
+http://pili-live-hdl.qhmywl.com:80/dsdtv/bdc9e5f7487003c20223fd67f25c7ee7.m3u8
+#EXTINF:-1 tvg-name="台视（测试）" group-title="台湾测试",台视（测试）
+http://162.19.247.76:22222/live/taishi/index.m3u8
+#EXTINF:-1 tvg-name="公视3台（测试）" group-title="台湾测试",公视3台（测试）
+http://111.59.139.85:11888/tsfile/live/1222_1.m3u8?key=txiptv
+#EXTINF:-1 tvg-name="中天综合（测试）" group-title="台湾测试",中天综合（测试）
+http://23.237.10.66:16372
