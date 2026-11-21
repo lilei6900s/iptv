@@ -1,0 +1,12 @@
+#!name=DaAi Referer 补全
+#!desc=给大爱电视台请求补 Referer，让 APTV 能播大爱一台、大爱二台
+#!author=Muse
+# 大爱官网流 pulltv1/pulltv2.wanfudaluye.com 要求请求带 Referer: https://www.daai.tv/，不带返回 403。
+# APTV 不发这个头，这条 Header Rewrite 在小火箭里补上。只影响 *.wanfudaluye.com 的请求，其余配置不动。
+# 需要 MitM 开启（证书已信任即可）。
+
+[Header Rewrite]
+http-request ^https:\/\/.*\.wanfudaluye\.com\/ header-add Referer https://www.daai.tv/
+
+[MITM]
+hostname = %APPEND% *.wanfudaluye.com
