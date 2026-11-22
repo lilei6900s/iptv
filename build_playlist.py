@@ -525,6 +525,7 @@ SOURCE_OVERRIDES = {
     "凤凰资讯": "http://php.jdshipin.com/TVOD/iptv.php?id=fhzx",  # 替换原来的 FLV 直连
     "千禧经典": "http://php.jdshipin.com/TVOD/iptv.php?id=tvbc",  # TVB千禧经典台
     "无线星河": "https://cdn3.indevs.in/stream/live/tvbxh/",  # 2026-11-22 run #48：原 jdshipin/163189 中继冻结循环（sequence 卡 2489），换 indevs（帧验《玫瑰战争》1080p；只推干净 base URL，variant 的 per-fetch token 不写）
+    "天映频道": "https://cdn3.indevs.in/stream/live/typd/",  # 2026-11-22 run #51：原 jdshipin smt.php?id=Celestial 死（301→302 后超时；与天映经典同后端下线），换 indevs（帧验《我爱你！》1080p50，序列推进；只推干净 base URL，variant 的 per-fetch token 不写）
     "翡翠": "http://120.198.84.146:9901/tsfile/live/1020_1.m3u8",  # 2026-11-22 run #48：原 jdshipin/163189 中继入口抖动、用户看不了，换 txiptv 120.198.84.146（帧验翡翠台台标 1080p；不是已删的 223.78.65.165）
     # 全量排查修复（2026-11-14）：以下 5 个台的上游源已死，改用实测直播源
     "CCTV6电影": "http://74.91.26.218:82/live/cctv6hd.m3u8",  # 与 CCTV-6 同源；原 1905 PHP 已坏
