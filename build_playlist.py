@@ -360,15 +360,15 @@ def excluded(display):
 SOURCE_OVERRIDES = {
     "湖南卫视": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",  # 2026-11-20 帧验芒果 4K《鸳鸯佩》；带签名的芒果 URL，若失效改回 107.150 中继
     "广东卫视": "https://h5cul1yar48um3t.wcetv.com/hls/gdsatellite.m3u8",  # 2026-11-20 帧验《战火青春》ep31
-    "四川卫视": "http://107.150.60.122/live/scwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
-    "江西卫视": "http://107.150.60.122/live/jxwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
-    "贵州卫视": "http://107.150.60.122/live/gzwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
-    "宁夏卫视": "http://107.150.60.122/live/nxws.m3u8",
-    "新疆卫视": "http://107.150.60.122/live/xjws.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "四川卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=scwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "江西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jxwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "贵州卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gzwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "宁夏卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=nxws",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "新疆卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=xjws",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "西藏卫视": "https://live.vtibet.cn/live/ZYWS20261016.stream.m3u8",  # 2026-11-20 帧验官方藏语节目
-    "内蒙古卫视": "http://107.150.60.122/live/nmgws.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "内蒙古卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=nmgws",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "陕西卫视": "http://107.150.60.122/live/snwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
-    "山西卫视": "http://107.150.60.122/live/sxwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "山西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sxwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     # 美亚电影：bestK 的 php 中继已死，iptv-org 的源是直播
     "美亚电影": "http://103.172.187.30:12000/stream/mytv/null-2/master.m3u8",
     # 原住民电视：tw 源里排前面的 akamaized 源已死，用同文件里直播的那个
@@ -386,7 +386,7 @@ SOURCE_OVERRIDES = {
     "CCTV3": "http://74.91.26.218:82/live/cctv3hd.m3u8",  # 待测：原 63.141 播广告
     "CCTV4": "https://h5cul1yar48um3t.wcetv.com/hls/cctv4.m3u8",  # 已验：帧确认 CCTV-4 美洲版真实内容
     "CCTV5": "http://120.40.39.246:352/newlive/live/hls/5/live.m3u8",  # 2026-11-18 深度 hunt 帧验证：真CCTV-5直播(CBA)，1920x1080/25fps/~8.6Mbps，整段下载+60秒稳定性复查通过；newlive 家族（同之前能播的 SD 源家族），电信福建。txiptv 223.78.65.165 对 2026-11-18 晚移除：用户反馈所有网络都卡，沙箱测其吞吐 1.85~8.85Mbps 剧烈波动、播放列表 9 秒才返回；该 host 是全单唯一移动(山东济南)源。勿无证据加回 txiptv。旧SD源 http://221.226.51.220:50081/newlive/live/hls/5/live.m3u8 保留作回退备选
-    "CCTV5+": "http://219.147.245.238:25480/newlive/live/hls/6/live.m3u8",  # 2026-11-18 深度 hunt 帧验证：真CCTV-5+直播(意甲米兰德比)，1920x1080/25fps/~4.4Mbps（已验 HD 里最轻、最省流量），整段下载+60秒稳定性复查通过；newlive 家族，电信哈尔滨。注意 slot 因 host 而异：此 host slot 6=CCTV-5+（已帧验），勿凭 slot 猜台。txiptv 对同 CCTV5 原因 2026-11-18 晚移除，勿无证据加回。备选：bfgd 4200000246、183.129.255.66:8480/hls/6
+    "CCTV5+": "http://183.129.255.66:8480/hls/6/index.m3u8",  # 2026-11-22 run #48：C29（哈尔滨电信 219.147.245.238）今早死（06:30 体检 + 07:06 复测均 HTTP 000）；换 hunt 第 3 名 C25（183.129.255.66:8480，帧验真 CCTV-5+ 直播 1920x1080/25fps ~7.9Mbps，钻石联赛多哈站男子标枪决赛，60 秒 sequence 推进；txiptv 同源 2026-11-18 因一直缓冲移除，勿无证据加回；备选 bfgd 4200000246）
     "CCTV6": "http://74.91.26.218:82/live/cctv6hd.m3u8",  # 待测：原 63.141 播广告
     "CCTV7": "http://74.91.26.218:82/live/cctv7hd.m3u8",  # 待测：原 107.150 播广告
     "CCTV8": "http://74.91.26.218:82/live/cctv8hd.m3u8",  # 待测：原 63.141 播广告
@@ -409,13 +409,13 @@ SOURCE_OVERRIDES = {
     "河北卫视": "https://restream.pdtvhd.com/memfs/1db8c005-9365-4b32-94a4-3736987b5646.m3u8",  # 帧验《大决战》；官方 live101 是美丽河北慢直播风景画面，不用
     "吉林卫视": "http://221.7.175.154:8445/tsfile/live/1014_1.m3u8?key=txiptv&playlive=1&authid=0",  # 帧验《薛仁贵传奇》ep41
     "云南卫视": "https://h5cul1yar48um3t.wcetv.com/hls/yunnantv.m3u8",  # 帧验《独立纵队》
-    "北京卫视": "http://107.150.60.122/live/bjwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
-    "重庆卫视": "http://107.150.60.122/live/cqwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
-    "东南卫视": "http://107.150.60.122/live/dnwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
-    "广西卫视": "http://107.150.60.122/live/gxwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "北京卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=bjwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "重庆卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cqwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "东南卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=dnwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "广西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gxwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "江苏卫视": "http://107.150.60.122/live/jswshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
-    "辽宁卫视": "http://107.150.60.122/live/lnwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
-    "山东卫视": "http://107.150.60.122/live/sdwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "辽宁卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=lnwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "山东卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sdwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "天津卫视": "http://107.150.60.122/live/tjwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
     "天津体育": "http://107.150.60.122/live/tjtv5.m3u8",  # 2026-11-20 63.141 换 107.150 中继
     "三沙卫视": "https://livessws.hnntv.cn/live/ssws_260111hnntv.m3u8",  # 2026-11-20 换 hnntv 官方 720p（帧验新闻联播）；路径含日期串 260111，若轮换会断，每日体检盯；1080p 全网未找到
@@ -428,8 +428,13 @@ SOURCE_OVERRIDES = {
     "CCTV4K真4K": "https://liveali-tp4k.cctv.cn/live/4K10M.stream/playlist.m3u8",
     # 2026-11-19 CETV-1：原 GITV 117.161.133.51 已死（2026-11-14 审计 exit 52）。换移动 PLTV 同族源 .../3221225753（CETV-2 已换 .../3221225756 同族），沙箱无法直连，待用户移动网实测；备选未验：txycsbl.centv.cn/zb/0628cetv1.m3u8（CETV 自有 CDN）、charging-rh.ha.chinamobile.com 河南移动 GITV。
     "CETV1": "http://223.110.241.204:6610/gitv/live1/G_CETV-1/G_CETV-1/",  # 2026-11-20 换 GITV 全国源（陕西 PLTV 直连仍 0 字节；沙箱无法直连，待用户实测）
-    "东方卫视": "http://107.150.60.122/live/dfwshd.m3u8",  # 原 38.75 -> 2436KB/s
-    "甘肃卫视": "http://107.150.60.122/live/gswshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "东方卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=dfwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "甘肃卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gswshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "安徽卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=ahwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "深圳卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=szwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "河南卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hawshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "湖北卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hbwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
+    "青海卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=qhws",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     # 2026-11-19 福建海峡卫视：原 Guovin 源 38.64.72.148 modn 404 已死（2026-11-14 审计即死，用户 2026-11-19 04:00 报不能看）。换官方源：r.jdshipin 短链跳转到 live1-fuyun.fjtv.net/haixiapd/hd/live.m3u8（海博TV 官方流，640x360/25fps，分片实测 200）。注意：2026-11-19 04:0x 帧验为“因版权问题暂时无法观看”slate——官方流在部分节目时段黑屏，待用户白天实测内容；短链每次跳转带 _upt 参数，勿写死最终 URL。备选未验：pi.0472.org/hls/hxws.m3u8（沙箱无法直连）。
     "福建海峡卫视": "http://r.jdshipin.com/WtYt3",
     # 2026-11-19 澳门体育/澳门综艺：原 cdn6.163189.xyz 中继已死（200 但无 #EXTM3U，2026-11-14 审计即死，用户 2026-11-19 12:04 报不能看）。先换 TDM 官方流（live3.tdm.com.mo）run #28 上线，但用户刷新后仍超时——TDM 直连疑似限澳门 IP。改换同中继的另一入口 cdn.qd.je/163189/{amty,amzy}（与在播的澳视卫星/澳视澳门同族：jdshipin 短链解析后就是 cdn.qd.je/163189/as、asam），2026-11-19 12:25 沙箱实测：主播单→cdn6.cc.cd 变体→分片 200（~3.5MB/10s），1080p25 h264，帧验真内容（体育=澳门大赛车直播，综艺=电视剧+澳门综艺角标）。
@@ -518,7 +523,8 @@ SOURCE_OVERRIDES = {
     "凤凰中文": "http://php.jdshipin.com/TVOD/iptv.php?id=fhzw",  # 与凤凰卫视台同一条流
     "凤凰资讯": "http://php.jdshipin.com/TVOD/iptv.php?id=fhzx",  # 替换原来的 FLV 直连
     "千禧经典": "http://php.jdshipin.com/TVOD/iptv.php?id=tvbc",  # TVB千禧经典台
-    "无线星河": "http://php.jdshipin.com/TVOD/iptv.php?id=xinghe",  # TVB无线星河
+    "无线星河": "https://cdn3.indevs.in/stream/live/tvbxh/",  # 2026-11-22 run #48：原 jdshipin/163189 中继冻结循环（sequence 卡 2489），换 indevs（帧验《玫瑰战争》1080p；只推干净 base URL，variant 的 per-fetch token 不写）
+    "翡翠": "http://120.198.84.146:9901/tsfile/live/1020_1.m3u8",  # 2026-11-22 run #48：原 jdshipin/163189 中继入口抖动、用户看不了，换 txiptv 120.198.84.146（帧验翡翠台台标 1080p；不是已删的 223.78.65.165）
     # 全量排查修复（2026-11-14）：以下 5 个台的上游源已死，改用实测直播源
     "CCTV6电影": "http://74.91.26.218:82/live/cctv6hd.m3u8",  # 与 CCTV-6 同源；原 1905 PHP 已坏
     "安多卫视": "http://play.kankanlive.com/live/1711956137852982.m3u8",  # DB AndoTV.cn，内容待用户确认
