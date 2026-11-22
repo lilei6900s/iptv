@@ -405,7 +405,8 @@ SOURCE_OVERRIDES = {
     "海南卫视": "https://iptv.yang-1989.xyz/cn/jr968j.m3u8",  # 2026-11-22 run #47：YanG 中继轮换（旧 yva3ae 已死：只剩 1 个 10 秒静态分片 + ENDLIST；新 jr968j 帧验真直播 1080p，sequence 推进，但中继仍不稳：测到一次约 4 分钟冻结 + 分片三轮 10/15，用户实测为准）
     # 2026-11-20 run #38: 63.141 中继同一共享广告+全超时，25 台换源（8 台帧验替源 + 17 台换同家中继 107.150.60.122，用户手机上东方/河南走它 133/261ms；海南无替源不动）
     "CCTV1": "http://74.91.26.218:82/live/cctv1hd.m3u8",  # 帧验《老农民》
-    "浙江卫视": "https://ali-m-l.cztv.com/channels/lantian/channel001/1080p.m3u8",  # 帧验《庆余年2》
+    "浙江卫视": "http://ali-xwl.cztv.com/live/channel011080Plxw.m3u8",  # 2026-11-22 run #49：原 ali-m-l channel001 冻结（序列恒 359977910，PDT 停 2025-12-30），换浙江广电官方另一路 ali-xwl，帧验《津门飞鹰》1080p，序列 101707→101711 推进
+    "浙江国际": "http://ali-xwl.cztv.com/live/channel101080Plxw.m3u8",  # 2026-11-22 run #49：原 ali-m-l channel10 同样冻结（序列恒 287140087），换官方 ali-xwl，帧验《孤战迷城》1080p，序列 156835→156840 推进
     "河北卫视": "https://restream.pdtvhd.com/memfs/1db8c005-9365-4b32-94a4-3736987b5646.m3u8",  # 帧验《大决战》；官方 live101 是美丽河北慢直播风景画面，不用
     "吉林卫视": "http://221.7.175.154:8445/tsfile/live/1014_1.m3u8?key=txiptv&playlive=1&authid=0",  # 帧验《薛仁贵传奇》ep41
     "云南卫视": "https://h5cul1yar48um3t.wcetv.com/hls/yunnantv.m3u8",  # 帧验《独立纵队》
