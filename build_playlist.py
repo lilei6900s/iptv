@@ -26,6 +26,7 @@ SOURCES = [
     ("ph", "https://iptv-org.github.io/iptv/countries/ph.m3u"),
     ("th", "https://iptv-org.github.io/iptv/countries/th.m3u"),
     ("sg", "https://iptv-org.github.io/iptv/countries/sg.m3u"),
+    ("my", "https://iptv-org.github.io/iptv/countries/my.m3u"),
 ]
 
 REPLACEMENTS = [
@@ -403,6 +404,7 @@ SOURCE_OVERRIDES = {
     "CETV2": "http://223.110.241.204:6610/gitv/live1/G_CETV-2/G_CETV-2/",  # 2026-11-20 换 GITV 全国源（陕西 PLTV 直连仍 0 字节；沙箱无法直连，待用户实测）
     # 2026-11-20 海南卫视：原 bfgd 4200000473 播单能拉、分片全超时（整个 bfgd 分片 host 挂了，用户报看不了）。换陕西移动 PLTV 3221225769（xyq254245 live.txt；同文件 CETV1=753/CETV2=756 与已上线的一致，同族邻台四川 768/东南 766/河南 767 印证 ID 映射）；沙箱无法直连，待用户在移动网实测。官方 hnntv 流帧验是真节目但 token 只活 2 小时、没法当静态源用；裸官方 URL 是 token 门（403），不换。2026-11-20 晚：陕西 PLTV 直连移动网仍 0 字节，源本身死/锁，换黑龙江 PLTV 3221226465（沙箱无法验证，待用户实测；若还超时则 PLTV 家族对该机无解）。2026-11-20 晚：黑龙江 PLTV 直连仍 0 字节，PLTV 家族对该机无解，改 GITV 全国源（Hl190909 播单，LYWS 码与深查的 GITV 302 路径一致；CETV-1/2 同换 GITV）。
     "海南卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=lywshd",  # 2026-11-23 run #52：YanG 已停用；测试订阅 6 条候选手机全超时（4G，11:36）后，探 63.141 中继 ?id=lywshd 命中：302 跳 69.30.211.138 签名播单（jsbt/jsbk 按次签发，只写干净入口 URL），序列 30996→31004 推进，分片 5.2MB/1.56s，1920x1080/25fps，帧验海南卫视台标+古装剧真节目。同 20 卫视在用中继，每日体检盯并台。
+    "八度空间": "https://cdn.qd.je/163189/8tv",  # 2026-11-24 run #53：原 cdn6.163189.xyz 前端 11-23 体检已死（分片 0 字节）；同中继 qd.je 前端帧验 8TV 华语新闻 1080p 真节目（第 20 届亚运会奖牌榜）。只写干净入口，variant 的 per-fetch token 不写。
     # 2026-11-20 run #38: 63.141 中继同一共享广告+全超时，25 台换源（8 台帧验替源 + 17 台换同家中继 107.150.60.122，用户手机上东方/河南走它 133/261ms；海南无替源不动）
     "CCTV1": "http://74.91.26.218:82/live/cctv1hd.m3u8",  # 帧验《老农民》
     "浙江卫视": "http://ali-xwl.cztv.com/live/channel011080Plxw.m3u8",  # 2026-11-22 run #49：原 ali-m-l channel001 冻结（序列恒 359977910，PDT 停 2025-12-30），换浙江广电官方另一路 ali-xwl，帧验《津门飞鹰》1080p，序列 101707→101711 推进
@@ -710,7 +712,7 @@ LIVE_TH_URLS = {
 
 # Group order the user asked for (2026-11-11): 央视, 卫视, 港澳台, 日韩,
 # then 地方台. Anything that fits none of those (international news,
-# Malaysia/Singapore, movie/sports/shopping/documentary specialty channels)
+# movie/sports/shopping/documentary specialty channels)
 # goes to a trailing 其他 group.
 # 新加坡：2026-11-21 审计（sg-audit-2026-11-21.json）帧验通过的 5 条真直播；其余 4 条未入选：5频道中继冻结、TechStorm 已死、meWATCH 只有 DASH、Suria 沙箱无法验证待用户新加坡节点实测。
 LIVE_SG_URLS = {
@@ -721,7 +723,25 @@ LIVE_SG_URLS = {
     'https://amg01082-cna-amg01082c1-rlaxx-us-11304.playouts.now.amagi.tv/playlist.m3u8',
 }
 
-GROUP_ORDER = ["央视", "卫视", "港澳台", "新加坡", "泰国", "越南", "老挝", "菲律宾", "日韩", "地方台", "其他"]
+# 马来西亚只收实测能播的高清源（与越南/老挝/菲律宾/泰国/新加坡同一标准）。
+# 2026-11-24 审计（my-audit-2026-11-24.json）：iptv-org my.m3u 只有 6 条，
+# 2 条非马来西亚（BTL TV 荷兰、FTV 台湾）不在此表；其余 4 条 RTM 官方
+# CloudFront 全是 1080p 真直播。TV1 上游只给 DASH（合并时排除），HLS 形式
+# 是按同源 TV2/Okey/Berita 类推的官方地址，帧验 1080p 后在 main() 里直接
+# 注入；Astro AWANI 官方 CDN 不在任何上游里，同样直接注入。两个注入的 URL
+# 也要进这张表，否则合并时的 my 来源白名单会把它们拦掉。
+# 未入选（无可用静态高清源，勿加）：TV3/TV9/DidikTV（tonton 限马来西亚 IP，
+# 用户无马来西亚节点）、TV6/Sukan RTM（官方 CDN 无静态 HLS）、TV AlHijrah/
+# Bernama TV/TVS/Suke TV/Drama Sangat/Awesome TV/TV IKIM（源死或限流）。
+LIVE_MY_URLS = {
+    'https://d25tgymtnqzu8s.cloudfront.net/smil:tv1/playlist.m3u8?id=1',
+    'https://d25tgymtnqzu8s.cloudfront.net/smil:tv2/playlist.m3u8?id=2',
+    'https://d25tgymtnqzu8s.cloudfront.net/smil:okey/playlist.m3u8?id=3',
+    'https://d25tgymtnqzu8s.cloudfront.net/smil:berita/playlist.m3u8?id=5',
+    'https://d2idp3hzkhjpih.cloudfront.net/out/v1/4b85d9c2bf97413eb0c9fd875599b837/index.m3u8',
+}
+
+GROUP_ORDER = ["央视", "卫视", "港澳台", "新加坡", "马来西亚", "泰国", "越南", "老挝", "菲律宾", "日韩", "地方台", "其他"]
 
 # 港澳台组内排序（2026-11-11 用户要求）：香港在上，澳门其次，台湾最后，
 # 归属不明的（CNA 等海外/综合台）排在末尾、保持原有相对顺序。
@@ -803,6 +823,11 @@ def classify(display, upstream_group, source):
         return "菲律宾"
     if source == "sg":
         return "新加坡"
+    if source == "my":
+        return "马来西亚"
+    # 已在播单里的马来西亚台（按名归入新组；AOD/QJ 沙箱未验，仍留其他）。
+    if d in ("Astro欢喜台", "八度空间"):
+        return "马来西亚"
     if d.startswith("CCTV") or d.startswith("CGTN") or d.startswith("CETV"):
         return "央视"
     # Taiwan's GOOD TV (not Korea's Good TV, which has the same base name)
@@ -954,6 +979,21 @@ def main():
                      'group-title="港澳台",澳门莲花卫视')
     all_entries.append(("hk", _lotus_extinf, "澳门莲花卫视", _lotus_url, []))
 
+    # 马来西亚（用户 2026-11-24 要求新组，放在新加坡之下；只收帧验通过的高清源）：
+    # TV1 上游只给 DASH（合并时排除），HLS 形式是按同源 TV2/Okey/Berita 类推
+    # 的官方地址，2026-11-24 帧验 1080p 真节目；Astro AWANI 官方 CDN 不在任何
+    # 上游里。src 记 "my" → classify 分到马来西亚；两个 URL 已进 LIVE_MY_URLS
+    # 白名单，否则合并时的 my 来源白名单会把注入条目拦掉。
+    _tv1_url = "https://d25tgymtnqzu8s.cloudfront.net/smil:tv1/playlist.m3u8?id=1"
+    _tv1_extinf = ('#EXTINF:-1 tvg-id="TV1.my@SD" '
+                   'tvg-logo="https://i.imgur.com/wSyPmiY.png" '
+                   'group-title="马来西亚",TV1 (Malaysia) (1080p)')
+    all_entries.append(("my", _tv1_extinf, "TV1 (Malaysia) (1080p)", _tv1_url, []))
+    _awani_url = "https://d2idp3hzkhjpih.cloudfront.net/out/v1/4b85d9c2bf97413eb0c9fd875599b837/index.m3u8"
+    _awani_extinf = ('#EXTINF:-1 tvg-name="Astro AWANI" '
+                     'group-title="马来西亚",Astro AWANI (720p)')
+    all_entries.append(("my", _awani_extinf, "Astro AWANI (720p)", _awani_url, []))
+
     # merged: drop exact (display, url) duplicates, drop junk entries
     merged = []
     seen_pair = set()
@@ -985,6 +1025,9 @@ def main():
             n_excluded += 1
             continue
         if src == "sg" and url not in LIVE_SG_URLS:
+            n_excluded += 1
+            continue
+        if src == "my" and url not in LIVE_MY_URLS:
             n_excluded += 1
             continue
         key = (display, url)
