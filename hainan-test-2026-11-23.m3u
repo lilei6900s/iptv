@@ -1,0 +1,13 @@
+#EXTM3U
+#EXTINF:-1 tvg-name="海南卫视-央视蓝光" group-title="测试",海南卫视-央视蓝光
+http://120.204.20.147/tlivecloud-cdn.ysp.cctv.cn/001/2000291503.m3u8
+#EXTINF:-1 tvg-name="海南卫视-zby中继" group-title="测试",海南卫视-zby中继
+https://zby.130519.xyz/PLTV/11/224/3221226154/index.m3u8
+#EXTINF:-1 tvg-name="海南卫视-北京移动" group-title="测试",海南卫视-北京移动
+http://112.50.243.8/PLTV/88888888/224/3221225855/1.m3u8
+#EXTINF:-1 tvg-name="海南卫视-山东移动" group-title="测试",海南卫视-山东移动
+http://150.138.8.143/00/SNM/CHANNEL00000347/index.m3u8
+#EXTINF:-1 tvg-name="海南卫视-湖南标清" group-title="测试",海南卫视-湖南标清
+http://cg6.hunancatv.cn:9090/live/LYWS.m3u8?ci=123
+#EXTINF:-1 tvg-name="海南卫视-野火netlive" group-title="测试",海南卫视-野火netlive
+http://tv.netlive.ggff.net/hinws
