@@ -359,7 +359,7 @@ def excluded(display):
 # keeps the live source and the merged file still holds all backups.
 SOURCE_OVERRIDES = {
     "湖南卫视": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",  # 2026-11-20 帧验芒果 4K《鸳鸯佩》；带签名的芒果 URL，若失效改回 107.150 中继
-    "广东卫视": "https://h5cul1yar48um3t.wcetv.com/hls/gdsatellite.m3u8",  # 2026-11-20 帧验《战火青春》ep31
+    "广东卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gdwshd",  # 2026-11-27 用户报标清：原 WCETV 源实测只有 1280x720；63.141/74.91 两路候选帧验均为真广东卫视（台标+《上海滩生死较量》第6集），均为 1920x1080；选 63.141（与重庆/海南/黑龙江/湖南同池），74.91 作备选，107.150 只有 720p 不用。
     "四川卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=scwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "江西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jxwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "贵州卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gzwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
