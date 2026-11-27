@@ -358,7 +358,7 @@ def excluded(display):
 # URLs (gslb redirectors). Applied in the dedup step, so every daily rebuild
 # keeps the live source and the merged file still holds all backups.
 SOURCE_OVERRIDES = {
-    "湖南卫视": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",  # 2026-11-27 用户要 4K：换回芒果 4K HEVC，今测 3840x2160、序列推进，帧验芒果台标+4K角标+《因为爱情有晴天》；注意此源上午在用户手机上经代理超时过（Loon 无 hlsal-ldvt 的 DIRECT 规则），若再超时就加规则或换回 1080p 备用 http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hnwshd（run #61 已验）；74.91 为 720p 不用
+    "湖南卫视": "http://hlsal-ldvt.qing.mgtv.com/nn_live/nn_x64/dWlwPTEyNy4wLjAuMSZ1aWQ9cWluZy1jbXMmbm5fdGltZXpvbmU9OCZjZG5leF9pZD1hbF9obHNfbGR2dCZ1dWlkPTliODY4NmU5ZTM2YzYwMmMmZT02OTE0NjA0JnY9MSZpZD1ITldTWkdTVCZzPTcwN2RiYTc2YzJjNmJmMTQ4MmUyZGYzOWU2NWM3YWFi/HNWSZGST.m3u8",  # 芒果 4K HEVC 源（3840x2160，沙箱验过是活的）；2026-11-27 用户要 4K 换上后手机超时，加 DIRECT 规则仍超时，重找无其他 4K 源，同日换回 63.141 1080p。勿无证据再换回。
     "广东卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gdwshd",  # 2026-11-27 用户报标清：原 WCETV 源实测只有 1280x720；63.141/74.91 两路候选帧验均为真广东卫视（台标+《上海滩生死较量》第6集），均为 1920x1080；选 63.141（与重庆/海南/黑龙江/湖南同池），74.91 作备选，107.150 只有 720p 不用。
     "四川卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=scwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "江西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jxwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
@@ -405,6 +405,7 @@ SOURCE_OVERRIDES = {
     "海南卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=lywshd",  # 2026-11-23 run #52：YanG 已停用；测试订阅 6 条候选手机全超时（4G，11:36）后，探 63.141 中继 ?id=lywshd 命中：302 跳 69.30.211.138 签名播单（jsbt/jsbk 按次签发，只写干净入口 URL），序列 30996→31004 推进，分片 5.2MB/1.56s，1920x1080/25fps，帧验海南卫视台标+古装剧真节目。同 20 卫视在用中继，每日体检盯并台。
     "辽宁生活": "http://dassby.qqff.top:99/live/辽宁生活/index.m3u8",  # 2026-11-24 体检：原 120.76.248.139 源 PLAYLIST_ONLY（分片 0 字节，exit 52），已观察满一天；bestK 替源帧验 1920x1080 真节目（生活台标+电视购物广告），播单 200、序列推进、分片 9.7MB。
     "黑龙江卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hljwshd",  # 2026-11-27 用户报无画面：原 107.150.60.122 源时好时坏（20 分钟内 7 次测 5 次空回复 rc=52，06:30 体检 LIVE 是赶上好的时候）；63.141 替源 1280x720 真视频、独立分流（与重庆分片 md5 不同），两路候选同播 400-1106-678 电视购物广告，节目时段台标待用户实测确认。
+    "湖南卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=hnwshd",  # 2026-11-27 换回 1080p：4K 芒果源手机超时（代理和直连都超时），重找无其他 4K 源；63.141 1080p（run #61 已验）
     # 2026-11-20 run #38: 63.141 中继同一共享广告+全超时，25 台换源（8 台帧验替源 + 17 台换同家中继 107.150.60.122，用户手机上东方/河南走它 133/261ms；海南无替源不动）
     "CCTV1": "http://74.91.26.218:82/live/cctv1hd.m3u8",  # 帧验《老农民》
     "浙江卫视": "http://ali-xwl.cztv.com/live/channel011080Plxw.m3u8",  # 2026-11-22 run #49：原 ali-m-l channel001 冻结（序列恒 359977910，PDT 停 2025-12-30），换浙江广电官方另一路 ali-xwl，帧验《津门飞鹰》1080p，序列 101707→101711 推进
@@ -416,7 +417,7 @@ SOURCE_OVERRIDES = {
     "重庆卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=cqwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "东南卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=dnwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "广西卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=gxwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
-    "江苏卫视": "http://107.150.60.122/live/jswshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
+    "江苏卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=jswshd",  # 2026-11-27 用户报播卖药广告：107.150 中继又并台（帧验 400-788-3916 明慕金丹广告，720p）；换 63.141，帧验真节目《新相亲大会》1080p。74.91 亦 1080p 备选。江苏卫视4K（荔枝真 2160p）仍在列表里，用户实测能看。
     "辽宁卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=lnwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "山东卫视": "http://63.141.230.178:82/gslb/zbdq5.m3u8?id=sdwshd",  # 2026-11-22 run #48：107.150 中继并台播同一广告，换回 63.141（播单已验各台独立）
     "天津卫视": "http://107.150.60.122/live/tjwshd.m3u8",  # 2026-11-20 63.141 换 107.150 中继
