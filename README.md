@@ -1,1 +1,33 @@
-IyBJUFRWIOebtOaSrea6kO+8iOavj+WkqeiHquWKqOabtOaWsO+8iQoK5LiA5Liq5Y+w5Y+q55WZ5LiA5p2h55qE5Y676YeN54mI6K6i6ZiF77ya5aSu6KeGICsg5Y2r6KeGICsg5riv5r6z5Y+wICsg5pel6Z+p77yM57qmIDc4OSDlj7DjgIIKCiMjIOiuoumYhemTvuaOpe+8iEFQVFYg55u05o6l55So6L+Z5Liq77yJCgpgYGAKaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2xpbGVpNjkwMHMvaXB0di9tYWluL2lwdHYubTN1CmBgYAoK5Zu95YaF6K6/6Zeu5LiN6aG677yI5q+U5aaC56e75Yqo5a695bim5omT5LiN5byA5LiK6Z2i6YKj5Liq6ZO+5o6l77yJ5Y+v5Lul55So6L+Z5Liq6ZWc5YOP77yM5YaF5a655LiA5qC377yaCgpgYGAKaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL2xpbGVpNjkwMHMvaXB0dkBtYWluL2lwdHYubTN1CmBgYAoKIyMg5q+P5aSp6Ieq5Yqo5pu05pawCgpgLmdpdGh1Yi93b3JrZmxvd3MvZGFpbHktcmVidWlsZC55bWxgIOavj+WkqSAwODowMO+8iOWMl+S6rOaXtumXtO+8ieiHquWKqOS7juS4iua4uOmHjeW7uu+8mgoKLSDlpK7op4YgKyDkuLvmtYHljavop4bvvJpbR3VvdmluL2lwdHYtYXBpXShodHRwczovL2dpdGh1Yi5jb20vR3VvdmluL2lwdHYtYXBpKe+8iOiHquWKqOa1i+mAn++8iQotIOa4r+a+s+WPsCArIOabtOWkmuWNq+inhu+8mltiZXN0Sy9pcHR2XShodHRwczovL2dpdGh1Yi5jb20vYmVzdEsvaXB0dinvvIjmr4/lsI/ml7boh6rmo4DvvIkKLSDml6XmnKwgLyDpn6nlm73vvJpbaXB0di1vcmddKGh0dHBzOi8vZ2l0aHViLmNvbS9pcHR2LW9yZy9pcHR2KQoK5Y676YeN6KeE5YiZ6KeBIGBidWlsZF9wbGF5bGlzdC5weWDvvJrmjInlvZLkuIDljJblj7DlkI3ljrvph43vvIzmr4/lj7Dkv53nlZnnrKzkuIDmnaHmupDjgIIKCuW3suaOkumZpO+8muWkruinhuS7mOi0uemikemBk++8iOmjjuS6keWJp+WcuuOAgeesrOS4gOWJp+WcuuOAgeaAgOaXp+WJp+WcuuOAgeS4lueVjOWcsOeQhuOAgemjjuS6kemfs+S5kOOAgemjjuS6kei2s+eQg+OAgeWls+aAp+aXtuWwmuOAgeeUteinhuaMh+WNl+OAgeWkruinhuaWh+WMlueyvuWTgeOAgeWFteWZqOenkeaKgOOAgeWkruinhuWPsOeQg+OAgemrmOWwlOWkq+e9keeQg+OAgUNIQyDlrrbluq3lvbHpmaLjgIFDSEMg5Yqo5L2c55S15b2x77yJ5ZKM5Y6G5bm05pil5pma5b2V5YOP44CCCgojIyDmlofku7YKCi0gYGlwdHYubTN1YCDigJQg6K6i6ZiF55So6L+Z5Liq77yI5Y676YeN54mI77yM57qmIDc4OSDlj7DvvIkKLSBgSVBUVi3lhajpopHpgZMt5Y676YeN54mILm0zdWAg4oCUIOS4juS4iumdouWGheWuueebuOWQjAotIGBJUFRWLeWFqOmikemBky3lpK7op4bljavop4bmuK/mvrPlj7Dml6Xpn6kubTN1YCDigJQg5pyq5Y676YeN5Y6f54mI77yI57qmIDExMDAg5p2h77yM5p+Q5Y+w5pKt5LiN5LqG5Y+v5Lul5LuO6L+Z6YeM5o2i5rqQ77yJCg==
+# IPTV 直播源（每天自动更新）
+
+一个台只留一条的去重版订阅：央视 + 卫视 + 港澳台 + 日韩，约 789 台。
+
+## 订阅链接（APTV 直接用这个）
+
+```
+https://raw.githubusercontent.com/lilei6900s/iptv/main/iptv.m3u
+```
+
+国内访问不顺（比如移动宽带打不开上面那个链接）可以用这个镜像，内容一样：
+
+```
+https://cdn.jsdelivr.net/gh/lilei6900s/iptv@main/iptv.m3u
+```
+
+## 每天自动更新
+
+`.github/workflows/daily-rebuild.yml` 每天 08:00（北京时间）自动从上游重建：
+
+- 央视 + 主流卫视：[Guovin/iptv-api](https://github.com/Guovin/iptv-api)（自动测速）
+- 港澳台 + 更多卫视：[bestK/iptv](https://github.com/bestK/iptv)（每小时自检）
+- 日本 / 韩国：[iptv-org](https://github.com/iptv-org/iptv)
+
+去重规则见 `build_playlist.py`：按归一化台名去重，每台保留第一条源。
+
+已排除：央视付费频道（风云剧场、第一剧场、怀旧剧场、世界地理、风云音乐、风云足球、女性时尚、电视指南、央视文化精品、兵器科技、央视台球、高尔夫网球、CHC 家庭影院、CHC 动作电影）和历年春晚录像。
+
+## 文件
+
+- `iptv.m3u` — 订阅用这个（去重版，约 789 台）
+- `IPTV-全频道-去重版.m3u` — 与上面内容相同
+- `IPTV-全频道-央视卫视港澳台日韩.m3u` — 未去重原版（约 1100 条，某台播不了可以从这里换源）
